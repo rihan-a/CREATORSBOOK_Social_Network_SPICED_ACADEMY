@@ -1,0 +1,44 @@
+.creators-container {
+    margin: auto;
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2%;
+    row-gap: 1.5rem;
+}
+
+.creators-container .creator-card {
+    width: 15%;
+    aspect-ratio: 1/1;
+    /* background-color: rgba(255, 255, 255); */
+    background-color: var(--cardBackground);
+    border-radius: 10px;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.creators-container .creator-card:hover {
+    border: solid 1px var(--textColor);
+}
+
+.creator-img-container {
+    margin: 10px auto;
+    width: 90%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.creators-container .creator-card img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.creator-card .creator-name {
+    display: block;
+    margin: 10px;
+    padding-bottom: 10px;
+    font-weight: 400;
+}

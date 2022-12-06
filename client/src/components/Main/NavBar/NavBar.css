@@ -1,0 +1,49 @@
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    width: 95%;
+}
+
+.nav-bar .logo-svg {
+    margin: 20px;
+    width: 15%;
+    fill: var(--textColor);
+    cursor: pointer;
+}
+
+.nav-bar .logo-svg:hover {
+    fill: var(--accentColor);
+}
+
+.nav-bar .nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--textColor);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nav-bar .nav-link:hover {
+    color: var(--accentColor);
+}
+
+.nav-bar .profile-picture {
+    margin-top: 5px;
+    width: 45px;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.nav-bar .profile-picture:hover {
+    border: solid 2px var(--textColor);
+}
+
+.nav-bar .profile-picture img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

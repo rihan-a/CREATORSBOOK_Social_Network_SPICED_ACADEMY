@@ -1,0 +1,31 @@
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS reset_codes;
+DROP TABLE IF EXISTS collabs;
+
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    img_url VARCHAR,
+    bio VARCHAR,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE reset_codes(
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    reset_code VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+DROP TABLE IF EXISTS collabs;
+CREATE TABLE collabs(
+id SERIAL PRIMARY KEY,
+sender_id INTEGER NOT NULL REFERENCES users(id),
+recipient_id INTEGER NOT NULL REFERENCES users(id),
+accepted BOOLEAN DEFAULT false,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

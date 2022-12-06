@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* global color variables */
+:root {
+    --backgroundColor: #eee;
+    --textColor: rgb(16, 16, 16);
+    --cardBackground: white;
+    --accentColor: salmon;
+}
+
+body {
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
+    margin: auto;
+    font-family: "Poppins", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --backgroundColor: rgb(18, 18, 18);
+        --textColor: #eee;
+        --cardBackground: rgb(50, 50, 50);
+    }
+}
+
+.error {
+    color: red;
+}
+
+.welcome-page {
+    margin: auto;
+    width: 95%;
+}
+
+.welcome-box {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 150px;
+}
+
+.welcome-box .logo-svg {
+    width: 70%;
+    margin-bottom: 40px;
+    fill: var(--textColor);
+}
+
+.welcome-box h3 {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-bottom: 70px;
+}

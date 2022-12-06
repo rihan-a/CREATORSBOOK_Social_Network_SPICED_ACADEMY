@@ -1,0 +1,162 @@
+.profileModal {
+    background-color: rgb(69, 69, 69);
+    border-radius: 10px;
+    position: absolute;
+    width: 400px;
+    top: 80px;
+    left: 35px;
+    padding: 10px 30px;
+}
+
+.profileModal h4 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.profile-picture-uploader {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    position: relative;
+}
+
+.profile-picture-uploader img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile-picture-uploader span {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.profileModal img {
+    /* width: 100%; */
+    border-radius: 10px;
+}
+.profileModal p {
+    margin: 10px auto;
+}
+
+.modal-uploader {
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    background-color: rgba(255, 255, 255, 0.829);
+}
+
+.modal-uploader input {
+    height: 35px;
+    background: none;
+    border-radius: 20px;
+    border: solid 1px black;
+    color: black;
+}
+
+.modal-uploader .upload-file {
+    width: 100%;
+    background: none;
+    position: relative;
+    padding-left: 15px;
+    padding-top: 4px;
+    color: gray;
+    font-size: 0.8rem;
+}
+
+.modal-uploader .upload-btn {
+    margin-top: 10px;
+    width: 100%;
+    background: none;
+    position: relative;
+    border-radius: 20px;
+    padding-top: 4px;
+    color: black;
+    font-size: 1rem;
+}
+
+.modal-uploader .upload-btn:hover {
+    color: white;
+    background-color: black;
+}
+
+.modal-uploader .upload-file::-webkit-file-upload-button {
+    height: 25px;
+    width: 90px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translate(0, -50%);
+}
+
+.modal-uploader p {
+    margin: 0px auto;
+    margin-bottom: 10px;
+    color: black;
+}
+
+/*  close icon */
+.profileModal span {
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    user-select: none;
+    background-color: rgba(255, 255, 255, 0.295);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.profileModal .edit-icon {
+    top: unset;
+    right: 5px;
+    bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.549);
+    color: black;
+}
+
+.profileModal span:hover {
+    color: var(--accentColor);
+}
+
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 700, "GRAD" -25, "opsz" 48;
+}
+
+/* -------------------------------- BIO Editor ---------------------------------------- */
+
+.bio-container .bio-btn {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.549);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.bio-container textarea {
+    margin-top: 20px;
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    background-color: none;
+    background: none;
+    border: solid 1px rgba(255, 255, 255, 0.444);
+    padding: 10px;
+    color: white;
+}

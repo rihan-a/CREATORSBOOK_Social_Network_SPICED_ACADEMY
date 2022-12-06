@@ -1,0 +1,33 @@
+.search-area {
+    margin: 40px auto;
+    width: 65%;
+    height: 45px;
+    border-radius: 25px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.search-area input {
+    width: 78%;
+    border: none;
+    height: 30px;
+    font-size: 1rem;
+}
+
+.search-area input:focus {
+    border: none;
+    outline: none;
+}
+
+.search-area button {
+    background-color: unset;
+    border: none;
+    cursor: pointer;
+}
+.search-area button img {
+    height: 35px;
+    margin-top: 4px;
+}
