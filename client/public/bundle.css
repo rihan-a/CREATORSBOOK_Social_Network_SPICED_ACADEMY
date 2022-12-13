@@ -84,7 +84,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
+    height: 150px;
 }
 
 .signup-signin-form input {
