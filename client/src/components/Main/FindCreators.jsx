@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar/SearchBar";
 import CreatorCard from "./CreatorCard/CreatorCard";
 import OtherCreatorProfile from "./OtherCreatorProfile/OtherCreatorProfile";
+import { useDispatch } from "react-redux";
+import { activateNavBar } from "../../redux/features/navBar/navBarSlice";
 
 function FindCreators() {
     const [creators, setCreators] = useState([]);
@@ -9,6 +11,15 @@ function FindCreators() {
     const [error, setError] = useState("");
     const [otherCreatorToggle, setOtherCreatorModal] = useState(false);
     const [otherCreatorId, setOtherCreatorId] = useState();
+
+    //highlight nav-bar link when the component get mounted
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(activateNavBar("creators"));
+        return function deactivateNavBar() {
+            dispatch(activateNavBar(""));
+        };
+    }, []);
 
     const searchBarCallBack = (childData) => {
         setSearchQuery(childData);

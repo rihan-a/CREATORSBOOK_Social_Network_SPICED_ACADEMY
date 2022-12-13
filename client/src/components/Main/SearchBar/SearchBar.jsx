@@ -13,7 +13,7 @@ function SearchBar(props) {
                 autoCapitalize="off"
                 autoCorrect="off"
                 spellCheck="false"
-                placeholder="Find creators to get inspired"
+                placeholder="Find creators to collaborate"
                 onChange={searchQueryCallback}
             />
 

@@ -1,0 +1,136 @@
+.chat-main-container {
+    width: 50%;
+    margin: 20px auto;
+}
+
+.msgs-container {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 0;
+    height: 70vh;
+    width: 100%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    background-color: var(--chatBg);
+    border-radius: 20px;
+}
+
+.msg-card {
+    width: 95%;
+    border-radius: 15px;
+    margin: 5px;
+}
+.msg-card {
+    /* height: 70px; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.msg-card-reversed {
+    flex-direction: row-reverse;
+}
+
+.msg-card .chat-profile-pic {
+    /* height: 100%; */
+    /* width: 11%; */
+    height: 70px;
+    overflow: hidden;
+
+    margin: 10px;
+}
+.msg-card .chat-profile-pic img {
+    height: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.msg-card .chat-name-msg {
+    max-width: 65%;
+    min-height: 80%;
+    background-color: rgb(200, 200, 200);
+    padding: 10px 18px;
+    border-radius: 20px;
+}
+
+.msg-card .user-chat-bg {
+    background-color: rgb(149, 149, 149);
+}
+
+.empty-dev {
+    width: 11%;
+    height: 100%;
+}
+
+.msg-card .message-txt {
+    color: black;
+    word-wrap: break-word;
+}
+
+.msg-card .chat-name-time {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.msg-card .chat-name-time p {
+    margin-right: 15px;
+    font-weight: 700;
+    color: black;
+}
+
+.msg-card .chat-name-time span {
+    font-size: 0.8rem;
+    color: rgb(67, 67, 67);
+}
+
+.text-area-container {
+    width: 100%;
+    height: 100px;
+    /* background-color: var(--textColor); */
+    border-radius: 20px;
+    margin-top: 10px;
+}
+.text-area-container .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: auto;
+}
+
+.text-area-container textarea {
+    background-color: rgb(200, 200, 200);
+    margin-top: 10px;
+    width: 87%;
+    height: 70px;
+    border-radius: 10px;
+    padding: 10px;
+    padding-left: 15px;
+    border: none;
+    resize: none;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+}
+
+.text-area-container button {
+    margin-top: 10px;
+    width: 11%;
+    height: 70px;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    background-color: rgb(72, 72, 72);
+    color: white;
+    font-size: 1rem;
+}
+
+.text-area-container button:hover {
+    background-color: white;
+    color: black;
+}

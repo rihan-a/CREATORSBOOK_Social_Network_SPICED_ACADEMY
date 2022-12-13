@@ -8,7 +8,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     transition: 300ms ease-in-out;
 }
 
@@ -18,7 +17,10 @@
     background-color: var(--cardBackground);
     border-radius: 15px;
     padding: 15px;
-    position: relative;
+    position: fixed;
+    top: 120px;
+    left: 50%;
+    transform: translate(-50%);
 }
 .creator-modal-img-container {
     width: 100%;

@@ -1,10 +1,18 @@
 import NavBar from "./NavBar/NavBar";
 import Profile from "./Profile/Profile";
 import FindCreators from "./FindCreators";
-import MyNetwork from "./MyNetwork";
+import MyCollabs from "./MyCollabs";
 import OtherCreatorProfile from "./OtherCreatorProfile/OtherCreatorProfile";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Chat from "./Chat/Chat";
+import WallFeed from "./WallFeed/WallFeed";
+import Footer from "./Footer/Footer";
+
+import { useDispatch } from "react-redux";
+import { getLoggedInUserId } from "../../redux/features/userId/userIdSlice";
+
+import { ThreeDots } from "react-loader-spinner";
 
 function Main() {
     const placeHolderImgUrl = "/images/placeholder.png";
@@ -16,7 +24,11 @@ function Main() {
     const [lastName, setLastName] = useState("");
     const [bio, setBio] = useState("");
 
-    const [error, setError] = useState("");
+    const [profilePicError, setProfilePicError] = useState("");
+
+    const [loading, setLoadingState] = useState(false);
+
+    const dispatch = useDispatch();
 
     const toggleModal = () => {
         setModalToggle(!modalToggle);
@@ -27,17 +39,20 @@ function Main() {
     };
 
     const uploadImage = () => {
+        setLoadingState(true);
+        setProfilePicError("");
         console.log("user trying to upload an img");
-
-        const file = document.querySelector("input[type=file]").files[0];
+        //const file = document.querySelector("input[type=file]").files[0];
+        const file = document.getElementById("profile-pic-file").files[0];
         const formData = new FormData();
         formData.append("file", file);
 
         if (!file) {
-            setError("Something went wrong!");
+            setProfilePicError("Please choose a valid picture!");
+            setLoadingState(false);
+            console.log("error in uploading image");
             return;
         }
-
         fetch("/profileImgUpload", {
             method: "POST",
             body: formData,
@@ -45,8 +60,9 @@ function Main() {
             .then((res) => res.json())
             .then((res) => {
                 //console.log("img url should be here", res);
-                setError("");
+                setProfilePicError("");
                 setImgUrl(res.img_url);
+                setLoadingState(false);
             });
     };
 
@@ -57,11 +73,12 @@ function Main() {
                 //console.log(result);
                 setFirstName(result.userData.first_name);
                 setLastName(result.userData.last_name);
+                dispatch(getLoggedInUserId(result.id));
 
                 if (result.userData) {
                     setBio(result.userData.bio);
                 }
-                setError("");
+
                 if (result.userData.img_url) {
                     //console.log(result.userData.img_url);
                     setImgUrl(result.userData.img_url);
@@ -73,28 +90,47 @@ function Main() {
         <div className="main">
             <BrowserRouter>
                 <NavBar openModalHandler={toggleModal} imgUrlHandler={imgUrl} />
-
-                {modalToggle == true && (
-                    <Profile
-                        closeModalHandler={closeUploader}
-                        uploadImgHandler={uploadImage}
-                        imgUrlHandler={imgUrl}
-                        firstNameHandler={firstName}
-                        lastNameHandler={lastName}
-                        errorHandler={error}
-                        bioHandler={bio}
-                    />
-                )}
-
                 <Routes>
-                    <Route path="/mynetwork" element={<MyNetwork />}></Route>
+                    <Route path="/mycollabs" element={<MyCollabs />}></Route>
                     <Route path="/creators" element={<FindCreators />}></Route>
                     <Route
                         path="/creators/:id"
                         element={<OtherCreatorProfile />}
                     ></Route>
+                    <Route exact path="/" element={<WallFeed />}></Route>
+                    <Route path="/chat" element={<Chat />}></Route>
                 </Routes>
+
+                {modalToggle == true && (
+                    <>
+                        <p className="profile-pic-error">{profilePicError}</p>
+                        <Profile
+                            closeModalHandler={closeUploader}
+                            uploadImgHandler={uploadImage}
+                            imgUrlHandler={imgUrl}
+                            firstNameHandler={firstName}
+                            lastNameHandler={lastName}
+                            // errorHandler={error}
+                            bioHandler={bio}
+                        ></Profile>
+                        {loading == true && (
+                            <div className="loading-spinner-profile">
+                                <ThreeDots
+                                    height="100"
+                                    width="100"
+                                    radius="9"
+                                    color="var(--accentColor)"
+                                    ariaLabel="three-dots-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClassName=""
+                                    visible={true}
+                                />
+                            </div>
+                        )}
+                    </>
+                )}
             </BrowserRouter>
+            <Footer />
         </div>
     );
 }

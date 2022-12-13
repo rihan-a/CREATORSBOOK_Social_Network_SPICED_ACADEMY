@@ -10,6 +10,7 @@ function ImageUploader(props) {
                 <p>Upload profile picture</p>
                 <input
                     className="upload-file"
+                    id="profile-pic-file"
                     type="file"
                     accept="image/png, image/jpeg"
                 />

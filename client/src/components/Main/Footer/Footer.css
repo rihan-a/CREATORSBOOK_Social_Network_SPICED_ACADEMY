@@ -1,0 +1,19 @@
+.footer-container {
+    margin-top: 30px;
+    width: 100%;
+    background-color: var(--cardBackground);
+}
+
+.footer {
+    margin: auto;
+    width: 95%;
+    height: 40px;
+    line-height: 40px;
+}
+
+.footer p {
+    text-align: center;
+    font-size: 0.75rem;
+    user-select: none;
+    color: var(--textColor);
+}

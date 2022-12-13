@@ -1,0 +1,148 @@
+.post-btn .material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
+    user-select: none;
+}
+
+.post-btn {
+    color: var(--backgroundColor);
+    background-color: var(--textColor);
+    width: 100px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    user-select: none;
+}
+
+.post-btn:hover {
+    background-color: var(--cardBackground);
+    color: var(--textColor);
+    border: 2px solid var(--textColor);
+}
+
+.rotate {
+    transform: rotate(45deg);
+}
+
+.post-btn-container {
+    width: 95%;
+    margin: auto;
+    margin-top: 20px;
+    display: flex;
+}
+
+.feed-container {
+    margin: auto;
+    margin-top: 20px;
+    width: 95%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 3fr));
+    grid-gap: 1.6rem;
+}
+
+.card-container {
+    height: 400px;
+    position: relative;
+    margin-bottom: 35px;
+}
+.card-img {
+    width: 100%;
+    height: 90%;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.card-img:hover {
+    border: solid 2px white;
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-desc {
+    width: 100%;
+    height: 60px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.card-desc .creator-details {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.card-desc .creator-details img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.card-desc .post-title {
+    color: var(--textColor);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 7px 0;
+}
+
+.card-desc p {
+    color: var(--textColor);
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.heart span {
+    position: absolute;
+    bottom: 45px;
+    left: 5px;
+}
+.heart .material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+    /* transition: all 0.2s ease-in; */
+}
+
+.heart .material-symbols-outlined:hover {
+    font-variation-settings: "FILL" 1, "wght" 300, "GRAD" 0, "opsz" 24;
+}
+
+/* --- load more btn --- */
+
+/* .load-more-container {
+    width: 95%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.load-more-container button {
+    height: 35px;
+    margin: auto;
+    width: 10%;
+    border-radius: 20px;
+    border: none;
+    background-color: white;
+    margin-bottom: 40px;
+    font-size: 1rem;
+    transition: all 0.1s ease-in;
+    cursor: pointer;
+}
+.load-more-container button:hover {
+    background-color: rgb(34, 34, 34);
+    color: white;
+    border: solid 1px white;
+} */
