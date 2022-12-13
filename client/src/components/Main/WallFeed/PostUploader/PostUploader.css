@@ -1,0 +1,94 @@
+/* --------------- images uploading area ----------------- */
+.img-upload-container {
+    margin: 30px auto;
+    width: 35%;
+    aspect-ratio: 1/0.6;
+    max-height: 350px;
+    transition: all 0.6s ease-in-out;
+    background-color: var(--uploaderModal);
+    position: fixed;
+    border-radius: 20px;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.img-upload-container form {
+    margin: 30px auto;
+    height: 90%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img-upload-container form input {
+    width: 85%;
+    height: 35px;
+    background: var(--backgroundColor);
+    border-radius: 20px;
+    border: solid 1px var(--textColor);
+    color: var(--textColor);
+}
+
+.img-upload-container input:nth-child(2),
+.img-upload-container input:nth-child(3) {
+    padding-left: 14px;
+    font-size: 1rem;
+    font-weight: 200;
+}
+
+.img-upload-container input:nth-child(1) {
+    background: none;
+    position: relative;
+    padding-left: 4%;
+    padding-top: 5px;
+    color: gray;
+    font-size: 0.8rem;
+}
+.img-upload-container input:nth-child(3) {
+    height: 70px;
+}
+
+.img-upload-container input:nth-child(1)::-webkit-file-upload-button,
+.img-upload-container input:nth-child(1)::file-selector-button {
+    height: 25px;
+    width: 90px;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--textColor);
+    color: var(--backgroundColor);
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translate(0, -50%);
+}
+
+/* upload button */
+.img-upload-container input:nth-child(4) {
+    background-color: var(--textColor);
+    color: var(--backgroundColor);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.img-upload-container input:nth-child(4):hover {
+    background-color: gray;
+    color: var(--textColor);
+}
+
+.form-error {
+    color: red;
+    margin: 10px;
+    font-weight: 200;
+    font-size: 0.9rem;
+}
+
+.img-upload-container .loading-spinner {
+    height: 0;
+    position: absolute;
+    top: -90px;
+}

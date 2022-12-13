@@ -5,7 +5,7 @@ function BioEditor(props) {
 
     const [bioText, setBioText] = useState("");
 
-    const [error, setError] = useState("");
+    //const [error, setError] = useState("");
 
     useEffect(() => {
         fetch("/creators-data")
@@ -16,7 +16,6 @@ function BioEditor(props) {
                     setBioText(result.userData.bio);
                     setBioState("edit");
                 }
-                setError("");
             });
     }, []);
 
@@ -38,10 +37,10 @@ function BioEditor(props) {
             .then((res) => res.json())
             .then((res) => {
                 setBioText(res.bio);
-                setError("");
+                //setError("");
             })
             .catch((err) => {
-                setError("Something went wrong!");
+                //setError("Something went wrong!");
             });
         setBioState("edit");
     };
@@ -88,7 +87,7 @@ function BioEditor(props) {
                             <>
                                 <p>{bioText}</p>
                                 <p className="bio-btn" onClick={editBioHandler}>
-                                    Edit
+                                    Edit Bio
                                 </p>
                             </>
                         );

@@ -22,10 +22,33 @@ CREATE TABLE reset_codes(
 );
 
 DROP TABLE IF EXISTS collabs;
+
 CREATE TABLE collabs(
 id SERIAL PRIMARY KEY,
 sender_id INTEGER NOT NULL REFERENCES users(id),
 recipient_id INTEGER NOT NULL REFERENCES users(id),
 accepted BOOLEAN DEFAULT false,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+DROP TABLE IF EXISTS messages;
+
+CREATE TABLE messages (
+id SERIAL PRIMARY KEY,
+sender_id INT NOT NULL REFERENCES users(id),
+message TEXT NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+
+
+
+DROP TABLE IF EXISTS posts;
+
+CREATE TABLE posts(
+    id SERIAL PRIMARY KEY,
+    url VARCHAR NOT NULL,
+    creator_id INT NOT NULL REFERENCES users(id),
+    title VARCHAR NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

@@ -81,14 +81,14 @@ function saveProfileBio({ id, bio }) {
 
 function getCreators() {
     return db
-        .query("SELECT first_name, last_name, img_url, bio, id FROM users ORDER BY created_at DESC LIMIT 6")
+        .query("SELECT first_name, last_name, img_url, bio, id FROM users ORDER BY created_at DESC LIMIT 12")
         .then((result) => result.rows);
 }
 
 function getCreatorsByName(searchQuery) {
 
     return db
-        .query(`SELECT * FROM users WHERE first_name  ILIKE $1 `, [
+        .query(`SELECT first_name, last_name, img_url, bio, id FROM users WHERE first_name ILIKE $1 OR last_name ILIKE $1 ORDER BY created_at DESC`, [
             searchQuery + "%",
         ])
         .then((result) => {
@@ -107,21 +107,21 @@ function collaborations(userId, recipientId, collabState) {
             return db
                 .query("SELECT * FROM collabs WHERE (sender_id=$1 AND recipient_id =$2) OR (sender_id=$2 AND recipient_id =$1)",
                     [userId, recipientId])
-                .then((result) => result.rows);
+                .then((result) => result.rows).catch(err => console.log(err));
 
         case "collab":
             return db
                 .query(`INSERT INTO collabs (sender_id, recipient_id)
         VALUES ($1, $2)
         RETURNING *`, [userId, recipientId])
-                .then((result) => result.rows);
+                .then((result) => result.rows).catch(err => console.log(err));
 
         case "accept":
             return db
                 .query(`UPDATE collabs SET accepted = true
        WHERE (sender_id=$1 AND recipient_id =$2) OR (sender_id=$2 AND recipient_id =$1)  
         `, [userId, recipientId])
-                .then((result) => result.rows);
+                .then((result) => result.rows).catch(err => console.log(err));
 
         case "cancel":
         case "end":
@@ -129,7 +129,7 @@ function collaborations(userId, recipientId, collabState) {
                 .query(`DELETE FROM collabs
        WHERE (sender_id=$1 AND recipient_id =$2) OR (sender_id=$2 AND recipient_id =$1)  
         `, [userId, recipientId])
-                .then((result) => result.rows);
+                .then((result) => result.rows).catch(err => console.log(err));
 
         default:
             console.log("default stage");
@@ -137,8 +137,101 @@ function collaborations(userId, recipientId, collabState) {
 }
 
 
+// WIP to be tested
+function getPossibleCollabs(id) {
+    return db
+        .query(
+            `SELECT first_name, last_name, img_url, bio, users.id, accepted, sender_id
+    FROM users JOIN collabs
+    ON (accepted = false AND recipient_id = $1 AND users.id = collabs.sender_id)
+    OR (accepted= false AND sender_id = $1 AND users.id = collabs.recipient_id)
+    OR (accepted= true AND recipient_id = $1 AND users.id = collabs.sender_id)
+    OR (accepted = true AND sender_id = $1 AND users.id = collabs.recipient_id)
+    ORDER BY first_name ASC
+    `, [id])
+        .then((result) => result.rows).catch(err => console.log(err));
+}
+
+function insertMessage({ sender_id, message }) {
+    return db
+        .query(
+            `INSERT INTO messages (sender_id, message)
+        VALUES ($1, $2)
+        RETURNING *;
+        `, [sender_id, message]).then((result) => result.rows).catch(err => console.log(err));
+}
 
 
+function getMessages() {
+    return db
+        .query(
+            `SELECT first_name, last_name, img_url, sender_id, message, messages.id, 
+        TO_CHAR(messages.created_at, 'DD/MM/YYYY, HH24:MI:SS') AS created_at
+        FROM users
+        JOIN messages
+        ON messages.sender_id = users.id
+        ORDER BY messages.created_at DESC
+        LIMIT 10`)
+        .then((result) => result.rows)
+        .catch(err => console.log(err));
+}
+
+function getLastMessageById({ id }) {
+    return db
+        .query(
+            `SELECT first_name, last_name, img_url, sender_id, message, messages.id, 
+        TO_CHAR(messages.created_at, 'DD/MM/YYYY, HH24:MI:SS') AS created_at
+        FROM users
+        JOIN messages
+        ON messages.sender_id = users.id
+        WHERE messages.id = $1;`, [id])
+        .then((result) => result.rows)
+        .catch(err => console.log(err));
+}
+
+
+// POSTS
+//--------------------------------------------------------------------->
+// function to save images data to the database
+function savePostData({ url, creator_id, title, desc }) {
+    return db
+        .query(
+            `INSERT INTO posts (url, creator_id, title, description)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *`,
+            [url, creator_id, title, desc]
+        ).then(result => {
+            return result.rows[0];
+        });
+}
+// Get last Post data + Creators data 
+function getLastPostById(id) {
+    return db
+        .query(
+            `SELECT first_name, last_name, img_url, url, title, description, posts.id, 
+        TO_CHAR(posts.created_at, 'DD/MM/YYYY, HH24:MI:SS') AS created_at
+        FROM users
+        JOIN posts
+        ON posts.creator_id = users.id
+        WHERE posts.id = $1;`, [id])
+        .then((result) => result.rows)
+        .catch(err => console.log(err));
+}
+
+// Get last 10 posts with their creators data
+function getPostsData() {
+    return db
+        .query(
+            `SELECT first_name, last_name, img_url, url, title, description, posts.id, 
+        TO_CHAR(posts.created_at, 'DD/MM/YYYY, HH24:MI:SS') AS created_at
+        FROM users
+        JOIN posts
+        ON posts.creator_id = users.id
+        ORDER BY posts.created_at DESC
+        LIMIT 10`)
+        .then((result) => result.rows)
+        .catch(err => console.log(err));
+}
 
 //-------------------------------------------------------------------->
 module.exports = {
@@ -152,5 +245,12 @@ module.exports = {
     saveProfileBio,
     getCreators,
     getCreatorsByName,
-    collaborations
+    collaborations,
+    getPossibleCollabs,
+    insertMessage,
+    getMessages,
+    getLastMessageById,
+    savePostData,
+    getPostsData,
+    getLastPostById
 };

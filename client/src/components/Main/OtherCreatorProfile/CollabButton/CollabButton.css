@@ -1,5 +1,31 @@
 .collab-btn {
     margin-top: 10px;
     width: 100%;
+    margin: 10px auto;
+
     height: 35px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--textColor);
+    color: var(--backgroundColor);
+}
+
+.collab-btn.small {
+    width: 90%;
+    font-size: 0.85rem;
+}
+
+.collab-btn span {
+    margin-right: 7px;
+}
+
+.collab-btn:hover {
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
 }

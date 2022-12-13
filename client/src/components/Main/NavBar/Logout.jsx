@@ -13,9 +13,10 @@ function Logout() {
 
     return (
         <>
-            <span className="nav-link" onClick={logOutHandler}>
-                LOGOUT
-            </span>
+            <div className="logout-btn" onClick={logOutHandler}>
+                <div className="material-symbols-outlined">logout</div>
+                <div> LOGOUT</div>
+            </div>
         </>
     );
 }

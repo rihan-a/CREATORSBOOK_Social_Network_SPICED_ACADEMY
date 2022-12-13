@@ -1,18 +1,52 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import "./CollabButton.css";
+import {
+    deleteCollab,
+    acceptCollab,
+} from "../../../../redux/features/collabs/collabsSlice";
 
 function CollabButton({ id }) {
     const [collabState, setCollabState] = useState("check");
     const [btnState, setBtnState] = useState("");
 
+    const dispatch = useDispatch();
+
+    //dispatch(getCollabs(result.myCollabsData));
+
+    const handleRejectCollab = () => {
+        console.log("decline collab");
+        setCollabState("cancel");
+        //dispatch(deleteCollab(id));
+    };
+
+    const handleCancelCollabReq = () => {
+        console.log("cancel collab req");
+        setCollabState("cancel");
+        //dispatch(deleteCollab(creatorId));
+    };
+
+    const handleAcceptCollab = () => {
+        console.log("accept state");
+        setCollabState("accept");
+        //dispatch(acceptCollab(id));
+    };
+
+    const handleEndCollab = () => {
+        setCollabState("end");
+        // dispatch(deleteCollab(creatorId));
+    };
+
     useEffect(() => {
-        console.log(id);
+        console.log("state change", collabState);
         fetch(`/collab/${collabState}/${id}`)
             .then((result) => result.json())
             .then((result) => {
+                //console.log(result.accepted);
                 //console.log(result);
                 if (result.collaborating == true) {
                     if (result.accepted == true) {
+                        //  console.log("collab accepted");
                         setBtnState("endBtn");
                     } else {
                         if (result.collaborationType == "sentRequest") {
@@ -37,7 +71,10 @@ function CollabButton({ id }) {
                                 className="collab-btn"
                                 onClick={() => setCollabState("collab")}
                             >
-                                Collab
+                                <span className="material-symbols-outlined">
+                                    handshake
+                                </span>
+                                Collab Request
                             </button>
                         );
 
@@ -45,9 +82,12 @@ function CollabButton({ id }) {
                         return (
                             <button
                                 className="collab-btn"
-                                onClick={() => setCollabState("cancel")}
+                                onClick={() => handleCancelCollabReq()}
                             >
-                                Cancel Collab request
+                                <span className="material-symbols-outlined">
+                                    cancel
+                                </span>
+                                Cancel Collab Request
                             </button>
                         );
 
@@ -56,13 +96,13 @@ function CollabButton({ id }) {
                             <>
                                 <button
                                     className="collab-btn"
-                                    onClick={() => setCollabState("accept")}
+                                    onClick={() => handleAcceptCollab()}
                                 >
                                     Accept Collab
                                 </button>
                                 <button
                                     className="collab-btn"
-                                    onClick={() => setCollabState("cancel")}
+                                    onClick={() => handleRejectCollab()}
                                 >
                                     Reject Collab
                                 </button>
@@ -73,14 +113,17 @@ function CollabButton({ id }) {
                         return (
                             <button
                                 className="collab-btn"
-                                onClick={() => setCollabState("end")}
+                                onClick={() => handleEndCollab()}
                             >
+                                <span className="material-symbols-outlined">
+                                    block
+                                </span>
                                 End Collab
                             </button>
                         );
 
                     default:
-                        console.log("default stage");
+                    //console.log("default stage");
                 }
             })()}
         </>

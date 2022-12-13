@@ -34,7 +34,8 @@ function OtherCreatorProfile(props) {
     //onClick={closeModalHandler}
 
     return (
-        <div className="modal-background">
+        <div>
+            <div className="modal-background" onClick={closeModalHandler}></div>
             <div className="creator-modal">
                 <div className="creator-modal-img-container">
                     {clickedId ? (

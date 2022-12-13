@@ -1,3 +1,4 @@
+// REQUIRE NODE MODULES 
 const express = require("express");
 const app = express();
 const compression = require("compression");
@@ -6,16 +7,15 @@ require("dotenv").config();
 const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
-
-const salt = bcrypt.genSaltSync(10);
-
-const { sendCodeEmail } = require("./ses");
-
-const cryptoRandomString = require('crypto-random-string');
-
 const aws = require("aws-sdk");
 const fs = require("fs");
+const salt = bcrypt.genSaltSync(10);
+const { sendCodeEmail } = require("./ses");
+const cryptoRandomString = require('crypto-random-string');
 const { uploader } = require("./middleware");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
+
 
 // import secrete data from dotenv
 const { PORT = 3001,
@@ -24,7 +24,6 @@ const { PORT = 3001,
     AWS_SECRET
 } = process.env;
 
-// AWS Mail Setup
 
 // AWS S3
 const s3 = new aws.S3({
@@ -32,17 +31,29 @@ const s3 = new aws.S3({
     secretAccessKey: AWS_SECRET,
 });
 
+const server = require("http").Server(app);
 
+
+const cookieSessionMiddleware = cookieSession({
+    secret: SESSION_SECRET,
+    maxAge: 1000 * 60 * 60 * 24 * 14,
+    samesite: true,
+});
+
+// INTIATE SOCKET IO 
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
+
+io.use((socket, next) => {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 
 // Middlewares -------------------------------------------------->
 //--------------------------------------------------------------->
-app.use(cookieSession({
-    secret: SESSION_SECRET,
-    maxAge: 1000 * 60 * 60 * 24 * 14,
-})
-);
-
+app.use(cookieSessionMiddleware);
 app.use(express.json());
 app.use(compression());
 // install middleware to help us read cookies easily
@@ -51,8 +62,8 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(express.static(path.join(__dirname, "uploads")));
-//--------------------------------------------------------------->
-//--------------------------------------------------------------->
+//------------------------------------------------------------------------------>
+//------------------------------------------------------------------------------>
 
 // import funciton from db script to interact with the database tables --------->
 const {
@@ -67,6 +78,13 @@ const {
     getCreators,
     getCreatorsByName,
     collaborations,
+    getPossibleCollabs,
+    insertMessage,
+    getMessages,
+    getLastMessageById,
+    savePostData,
+    getPostsData,
+    getLastPostById,
 } = require("./db");
 
 
@@ -92,9 +110,6 @@ app.post("/register", (req, res) => {
     console.log(req.body);
     const { firstName, lastName, email, password } = req.body;
 
-
-    // return res.json({ successo: true });
-
     if (
         firstName.trim() == "" ||
         lastName.trim() == "" ||
@@ -104,16 +119,14 @@ app.post("/register", (req, res) => {
         return res.json({
             error: "Something went wrong, please fill your data properly!"
         });
-
     }
 
     // check if the user email is already exsiting -------------------------
     getCreatorByEmail(email).then((user) => {
         //console.log({ user });
-
         if (user) {
             return res.json({
-                error: "this email is already registered!",
+                error: "This email is already registered!",
             });
 
         }
@@ -162,15 +175,10 @@ app.post("/login", (req, res) => {
                     let lastname = user.last_name;
                     let email = user.email;
 
-
-                    console.log(id);
-
+                    //console.log(id);
                     req.session.userID = id;
-
                     console.log(req.session.userID);
-
                     req.session.userName = { firstname, lastname, email };
-
                     req.session.logedIn = true;
                     return res.json({ success: true });
 
@@ -207,17 +215,15 @@ app.post("/password/reset/start", (req, res) => {
         getCreatorByEmail(email).then((result) => {
             if (result) {
                 //console.log(result);
+                // generate reset code
                 const secretCode = cryptoRandomString({
                     length: 6
                 });
 
                 console.log(secretCode);
-
                 let username = result.first_name + " " + result.last_name;
-                // generate reset code
 
                 sendCodeEmail(username, secretCode);
-
                 addResetCode({ email: email, reset_code: secretCode }).then((result) => {
                     //console.log(result);
                     return res.json({ success: true });
@@ -243,7 +249,6 @@ app.post("/password/reset/verify", (req, res) => {
     const { reset_code, password, email } = req.body;
 
     //console.log(req.body);
-
     verifyResetCode({ email, reset_code }).then((result) => {
         console.log("verify", result);
         if (result.rowCount > 0) {
@@ -275,7 +280,6 @@ app.post("/password/reset/verify", (req, res) => {
 app.post("/profileImgUpload", uploader.single("file"), (req, res) => {
     console.log(req.file);
     const { filename, mimetype, size, path } = req.file;
-
     const promise = s3 // this to send to aws, different for other cloud storage
         .putObject({
             Bucket: "spicedling",
@@ -286,13 +290,10 @@ app.post("/profileImgUpload", uploader.single("file"), (req, res) => {
             ContentLength: size,
         })
         .promise();
-
     promise
         .then(() => {
-
             let id = req.session.userID;
             let img_url = `https://s3.amazonaws.com/spicedling/${req.file.filename}`;
-
             //call a function to save picture to db 
             saveProfileImg({ id, img_url }).then(() => {
                 //console.log(result);
@@ -301,7 +302,8 @@ app.post("/profileImgUpload", uploader.single("file"), (req, res) => {
                     success: true
                 });
             });
-
+            // Delete image from local storage
+            unlinkFile(req.file.path);
         })
         .catch((err) => {
             console.log(err);
@@ -320,7 +322,8 @@ app.get("/creators-data", (req, res) => {
         if (userData) {
             return res.json({
                 success: true,
-                userData: userData
+                userData: userData,
+                id: id,
             });
 
         } else {
@@ -371,9 +374,11 @@ app.get("/api/creators", (req, res) => {
     getCreators().then((creatorsData) => {
         //console.log(userData);
         if (creatorsData) {
+            let id = req.session.userID;
+            const filteredCreatorsData = creatorsData.filter(creator => creator.id != id);
             return res.json({
                 success: true,
-                creatorsData: creatorsData
+                creatorsData: filteredCreatorsData
             });
 
         } else {
@@ -390,17 +395,17 @@ app.get("/api/creators", (req, res) => {
 //-------------------------------------------------------------------------->
 //GET
 app.get("/api/creators/:searchQuery", (req, res) => {
-
     let searchQuery = req.params.searchQuery;
-
     //console.log(searchQuery);
-
     getCreatorsByName(searchQuery).then((creatorsData) => {
         //console.log(creatorsData);
+        let id = req.session.userID;
+        const filteredCreatorsData = creatorsData.filter(creator => creator.id != id);
+
         if (creatorsData) {
             return res.json({
                 success: true,
-                creatorsData: creatorsData
+                creatorsData: filteredCreatorsData
             });
 
         } else {
@@ -461,12 +466,13 @@ app.get("/collab/:collabstate/:recipientId", (req, res) => {
     console.log(userId);
     console.log(recipientId);
 
+
     collaborations(userId, recipientId, collabState).then((result) => {
         console.log("collab status", result);
 
         if (result[0]) {
             console.log(result[0].sender_id);
-            console.log("there could be a collab");
+            //console.log("there could be a collab");
 
             if (result[0].sender_id == userId) {
                 return res.json({
@@ -483,18 +489,135 @@ app.get("/collab/:collabstate/:recipientId", (req, res) => {
             }
 
         } else {
-            console.log("no collab");
+            //console.log("no collab");
             return res.json({
                 collaborating: false,
             });
         }
+    }).catch((err) => {
+        console.log("there is an error :/", err);
     });
 });
 
 
 
 
+// Get My collabs data Route ---------------------------------------------->
+//-------------------------------------------------------------------------->
+//GET
+app.get("/api/mycollabs", (req, res) => {
+    let id = req.session.userID;
+    getPossibleCollabs(id).then((results) => {
+        //console.log(results);
+        return res.json({
+            success: true,
+            myCollabsData: results,
+            myId: id
+        });
+    });
+});
 
+// SOCKET IO CHAT ---------------------------------------------------------->
+//-------------------------------------------------------------------------->
+
+io.on("connection", async (socket) => {
+    console.log("[social:socket] incoming socket connection >>>>>>>>>>>>>>>", socket.id);
+
+    const { userID } = socket.request.session;
+    console.log(userID);
+    if (!userID) {
+        return socket.disconnect(true);
+    }
+
+    //get the latest 10 messages
+    getMessages().then((results) => {
+        //console.log(results);
+        socket.emit("chatMessages", results);
+    });
+
+    // listen for when the connected user sends a message
+    socket.on("chatMessage", (message) => {
+        console.log(message);
+        if (message.trim() !== "") {
+            insertMessage({ sender_id: userID, message }).then((newMsg) => {
+                console.log("new message", newMsg[0]);
+                // get last msg full data - creators name - img-url 
+                getLastMessageById({ id: newMsg[0].id }).then((newMsgFullData) => {
+                    //console.log("new message with fulldata", newMsgFullData);
+                    io.emit("chatMessage", newMsgFullData[0]);
+                });
+            }).catch((err) => {
+                console.log("there is an error :/", err);
+            });
+        } else {
+            io.emit("error", "Message can't be empty!");
+        }
+    });
+});
+
+
+// Upload Post Img to AWS and save url and img data to db Route ------------>
+//-------------------------------------------------------------------------->
+//POST
+app.post("/postImgUpload", uploader.single("file"), (req, res) => {
+    console.log(req.file);
+    const { postTitle, postDesc } = req.body;
+    const { filename, mimetype, size, path } = req.file;
+
+    const promise = s3 // this to send to aws
+        .putObject({
+            Bucket: "spicedling",
+            ACL: "public-read",
+            Key: filename,
+            Body: fs.createReadStream(path),
+            ContentType: mimetype,
+            ContentLength: size,
+        })
+        .promise();
+
+    promise
+        .then(() => {
+            let creator_id = req.session.userID;
+            let img_url = `https://s3.amazonaws.com/spicedling/${req.file.filename}`;
+
+            //call a function to save picture to db 
+            savePostData({ url: img_url, creator_id, title: postTitle, desc: postDesc }).then((postData) => {
+                //console.log(result);
+                let id = postData.id;
+                getLastPostById(id).then((postFullData) => {
+                    console.log(postFullData[0]);
+                    return res.json({
+                        success: true,
+                        postData: postFullData[0]
+                    });
+                }).catch((err) => console.log(err));
+            });
+            // Delete image from local storage
+            unlinkFile(req.file.path);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
+
+// Get posts Data Route ---------------------------------------------------->
+//-------------------------------------------------------------------------->
+//GET
+app.get("/api/posts", (req, res) => {
+    getPostsData().then((postsData) => {
+        if (postsData) {
+            return res.json({
+                success: true,
+                postsData: postsData
+            });
+        } else {
+            return res.json({
+                success: false,
+                error: "no posts yet"
+            });
+        }
+    });
+});
 
 // Logout Route ------------------------------------------------------------>
 //-------------------------------------------------------------------------->
@@ -504,9 +627,6 @@ app.get("/logout", function (req, res) {
     return res.json({ userID: null });
 });
 
-
-
-
 // Catch all Route --------------------------------------------------------->
 //-------------------------------------------------------------------------->
 //GET
@@ -514,6 +634,6 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(PORT, function () {
+server.listen(PORT, function () {
     console.log(`Express server listening on port ${PORT}`);
 });

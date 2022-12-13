@@ -1,11 +1,17 @@
 import Logo from "./Logo";
 import ProfilePicture from "./ProfilePicture";
-import Logout from "./Logout";
+import { useSelector } from "react-redux";
 import "./NavBar.css";
 
 import { Link } from "react-router-dom";
 
 function NavBar(props) {
+    const activeNavBar = useSelector((state) => {
+        return state.navBarColor.navBarActive;
+    });
+
+    //console.log("navbar", activeNavBar);
+
     return (
         <>
             <div className="nav-bar">
@@ -13,15 +19,35 @@ function NavBar(props) {
                     openModalHandler={props.openModalHandler}
                     imgUrlHandler={props.imgUrlHandler}
                 />
-                <Link className="nav-link" to="/mynetwork">
-                    MY NETWORK
+                <Link
+                    className={
+                        activeNavBar == "collabs"
+                            ? "nav-link active"
+                            : "nav-link"
+                    }
+                    to="/mycollabs"
+                >
+                    MY COLLABS
                 </Link>
                 <Logo />
-
-                <Link className="nav-link" to="/creators">
+                <Link
+                    className={
+                        activeNavBar == "creators"
+                            ? "nav-link active"
+                            : "nav-link"
+                    }
+                    to="/creators"
+                >
                     FIND CREATORS
                 </Link>
-                <Logout />
+                <Link
+                    className={
+                        activeNavBar == "chat" ? "nav-link active" : "nav-link"
+                    }
+                    to="/chat"
+                >
+                    CHAT
+                </Link>
             </div>
         </>
     );

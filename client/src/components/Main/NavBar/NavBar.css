@@ -8,7 +8,8 @@
 
 .nav-bar .logo-svg {
     margin: 20px;
-    width: 15%;
+    width: 22vh;
+    min-width: 150px;
     fill: var(--textColor);
     cursor: pointer;
 }
@@ -23,6 +24,7 @@
     color: var(--textColor);
     cursor: pointer;
     text-decoration: none;
+    user-select: none;
 }
 
 .nav-bar .nav-link:hover {
@@ -46,4 +48,8 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+.nav-bar .active {
+    color: var(--accentColor);
 }

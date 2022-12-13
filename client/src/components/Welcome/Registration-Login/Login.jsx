@@ -1,16 +1,12 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
-
 import "./RegistrationLogin.css";
-
 class Login extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             error: "",
         };
-
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
@@ -25,7 +21,6 @@ class Login extends Component {
     handleSubmit() {
         console.log("About to submit the form!");
         //console.log(this.state);
-
         fetch("/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -35,7 +30,7 @@ class Login extends Component {
             .then((response) => {
                 console.log({ response });
                 if (response.success == true) {
-                    location.reload();
+                    window.location.replace("/");
                 } else {
                     this.setState({ error: response.error });
                 }
@@ -49,7 +44,6 @@ class Login extends Component {
         return (
             <div className="signup-signin-components">
                 <h2>Welcome back!</h2>
-
                 <div className="signup-signin-form login">
                     <input
                         type="email"

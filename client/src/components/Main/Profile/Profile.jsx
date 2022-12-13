@@ -1,6 +1,6 @@
 import ImageUploader from "./ImageUploader";
 import BioEditor from "./BioEditor/BioEditor";
-
+import Logout from "../NavBar/Logout";
 import { useState } from "react";
 
 import "./Profile.css";
@@ -13,7 +13,11 @@ function Profile(props) {
     };
 
     return (
-        <>
+        <div className="profile">
+            <div
+                className="modal-background"
+                onClick={props.closeModalHandler}
+            ></div>
             <div className="profileModal">
                 <h4>
                     {props.firstNameHandler} {props.lastNameHandler}
@@ -41,8 +45,10 @@ function Profile(props) {
                 )}
 
                 <BioEditor bioHandler={props.bioHandler} />
+
+                <Logout />
             </div>
-        </>
+        </div>
     );
 }
 export default Profile;

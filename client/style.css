@@ -7,9 +7,11 @@
 /* global color variables */
 :root {
     --backgroundColor: #eee;
+    --chatBg: rgb(220, 220, 220);
     --textColor: rgb(16, 16, 16);
     --cardBackground: white;
     --accentColor: salmon;
+    --uploaderModal: rgba(255, 255, 255, 0.984);
 }
 
 body {
@@ -18,12 +20,14 @@ body {
     margin: auto;
     font-family: "Poppins", sans-serif;
 }
-
+/* dark theme colors */
 @media (prefers-color-scheme: dark) {
     :root {
         --backgroundColor: rgb(18, 18, 18);
+        --chatBg: rgb(31, 31, 31);
         --textColor: #eee;
-        --cardBackground: rgb(50, 50, 50);
+        --cardBackground: rgb(64, 64, 64);
+        --uploaderModal: rgba(34, 34, 34, 0.944);
     }
 }
 
@@ -55,4 +59,10 @@ body {
     text-align: center;
     font-size: 1.4rem;
     margin-bottom: 70px;
+}
+
+.possible-collabs h3 {
+    margin: auto;
+    width: 95%;
+    padding: 15px 0;
 }
