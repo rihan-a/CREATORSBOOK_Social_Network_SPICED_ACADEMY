@@ -103,7 +103,12 @@ function Main() {
 
                 {modalToggle == true && (
                     <>
-                        <p className="profile-pic-error">{profilePicError}</p>
+                        {profilePicError != "" && (
+                            <p className="profile-pic-error">
+                                {profilePicError}
+                            </p>
+                        )}
+
                         <Profile
                             closeModalHandler={closeUploader}
                             uploadImgHandler={uploadImage}
