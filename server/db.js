@@ -171,7 +171,7 @@ function getMessages() {
         JOIN messages
         ON messages.sender_id = users.id
         ORDER BY messages.created_at DESC
-        LIMIT 10`)
+        LIMIT 20`)
         .then((result) => result.rows)
         .catch(err => console.log(err));
 }
@@ -228,7 +228,7 @@ function getPostsData() {
         JOIN posts
         ON posts.creator_id = users.id
         ORDER BY posts.created_at DESC
-        LIMIT 10`)
+        LIMIT 20`)
         .then((result) => result.rows)
         .catch(err => console.log(err));
 }
