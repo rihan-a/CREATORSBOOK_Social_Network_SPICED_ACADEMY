@@ -43,7 +43,7 @@ const cookieSessionMiddleware = cookieSession({
 // INTIATE SOCKET IO 
 const io = require("socket.io")(server, {
     allowRequest: (req, callback) =>
-        callback(null, req.headers.referer.startsWith("https://creatorsbook.onrender.com")),
+        callback(null, req.headers.referer.startsWith("https://creatorsbook.onrender.com" || "https://www.rihan.info")),
 });
 
 io.use((socket, next) => {
