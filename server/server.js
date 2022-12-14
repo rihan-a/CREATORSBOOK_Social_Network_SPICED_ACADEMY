@@ -107,7 +107,7 @@ app.get("/user/id", (req, res) => {
 //POST
 app.post("/register", (req, res) => {
     //read data sent by the user in the form!
-    console.log(req.body);
+    //console.log(req.body);
     const { firstName, lastName, email, password } = req.body;
 
     if (
@@ -177,7 +177,7 @@ app.post("/login", (req, res) => {
 
                     //console.log(id);
                     req.session.userID = id;
-                    console.log(req.session.userID);
+                    //console.log(req.session.userID);
                     req.session.userName = { firstname, lastname, email };
                     req.session.logedIn = true;
                     return res.json({ success: true });
@@ -250,7 +250,7 @@ app.post("/password/reset/verify", (req, res) => {
 
     //console.log(req.body);
     verifyResetCode({ email, reset_code }).then((result) => {
-        console.log("verify", result);
+        //console.log("verify", result);
         if (result.rowCount > 0) {
             // Add Hashed password to database users table
             const hashedPassword = bcrypt.hashSync(password, salt);
@@ -278,7 +278,7 @@ app.post("/password/reset/verify", (req, res) => {
 //-------------------------------------------------------------------------->
 //POST
 app.post("/profileImgUpload", uploader.single("file"), (req, res) => {
-    console.log(req.file);
+    //console.log(req.file);
     const { filename, mimetype, size, path } = req.file;
     const promise = s3 // this to send to aws, different for other cloud storage
         .putObject({
@@ -431,7 +431,7 @@ app.get("/api/creator-profile/:id", (req, res) => {
         //console.log(creatorData);
         if (creatorData) {
             if (id == userId) {
-                console.log("same user");
+                //console.log("same user");
                 return res.json({
                     success: true,
                     sameUser: true
@@ -462,13 +462,13 @@ app.get("/collab/:collabstate/:recipientId", (req, res) => {
     let recipientId = req.params.recipientId;
     let userId = req.session.userID;
 
-    console.log(collabState);
-    console.log(userId);
-    console.log(recipientId);
+    //console.log(collabState);
+    //console.log(userId);
+    //console.log(recipientId);
 
 
     collaborations(userId, recipientId, collabState).then((result) => {
-        console.log("collab status", result);
+        //console.log("collab status", result);
 
         if (result[0]) {
             console.log(result[0].sender_id);
@@ -524,7 +524,7 @@ io.on("connection", async (socket) => {
     console.log("[social:socket] incoming socket connection >>>>>>>>>>>>>>>", socket.id);
 
     const { userID } = socket.request.session;
-    console.log(userID);
+    //console.log(userID);
     if (!userID) {
         return socket.disconnect(true);
     }
@@ -537,10 +537,10 @@ io.on("connection", async (socket) => {
 
     // listen for when the connected user sends a message
     socket.on("chatMessage", (message) => {
-        console.log(message);
+        //console.log(message);
         if (message.trim() !== "") {
             insertMessage({ sender_id: userID, message }).then((newMsg) => {
-                console.log("new message", newMsg[0]);
+                //console.log("new message", newMsg[0]);
                 // get last msg full data - creators name - img-url 
                 getLastMessageById({ id: newMsg[0].id }).then((newMsgFullData) => {
                     //console.log("new message with fulldata", newMsgFullData);
@@ -560,7 +560,7 @@ io.on("connection", async (socket) => {
 //-------------------------------------------------------------------------->
 //POST
 app.post("/postImgUpload", uploader.single("file"), (req, res) => {
-    console.log(req.file);
+    //console.log(req.file);
     const { postTitle, postDesc } = req.body;
     const { filename, mimetype, size, path } = req.file;
 
@@ -585,7 +585,7 @@ app.post("/postImgUpload", uploader.single("file"), (req, res) => {
                 //console.log(result);
                 let id = postData.id;
                 getLastPostById(id).then((postFullData) => {
-                    console.log(postFullData[0]);
+                    //console.log(postFullData[0]);
                     return res.json({
                         success: true,
                         postData: postFullData[0]
