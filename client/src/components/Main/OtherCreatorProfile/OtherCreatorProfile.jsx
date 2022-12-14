@@ -51,7 +51,11 @@ function OtherCreatorProfile(props) {
 
                     <img
                         className="creator-modal-img"
-                        src={creatorProfile.img_url}
+                        src={
+                            creatorProfile.img_url
+                                ? creatorProfile.img_url
+                                : "/images/placeholder.png"
+                        }
                         alt="profile picture"
                     />
                 </div>

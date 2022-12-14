@@ -14,7 +14,14 @@ function FeedPost(props) {
                 <div className="card-desc">
                     <p className="post-title">{props.title}</p>
                     <div className="creator-details">
-                        <img src={props.profilePicUrl} alt="profile picture" />
+                        <img
+                            src={
+                                props.profilePicUrl
+                                    ? props.profilePicUrl
+                                    : "/images/placeholder.png"
+                            }
+                            alt="profile picture"
+                        />
                         <p className="creator-name">
                             {props.firstName} {props.lastName}
                         </p>

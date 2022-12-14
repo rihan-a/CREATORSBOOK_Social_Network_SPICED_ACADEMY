@@ -78,7 +78,11 @@ function FindCreators() {
                         id={creator.id}
                         firstName={creator.first_name}
                         lastName={creator.last_name}
-                        imgUrl={creator.img_url}
+                        imgUrl={
+                            creator.img_url
+                                ? creator.img_url
+                                : "/images/placeholder.png"
+                        }
                         openCreatorProfileCallBack={otherCreatorModalToggle}
                     />
                 ))}

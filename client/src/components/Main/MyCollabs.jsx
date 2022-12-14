@@ -99,7 +99,11 @@ function MyCollabs() {
                                     id={collab.id}
                                     firstName={collab.first_name}
                                     lastName={collab.last_name}
-                                    imgUrl={collab.img_url}
+                                    imgUrl={
+                                        collab.img_url
+                                            ? collab.img_url
+                                            : "/images/placeholder.png"
+                                    }
                                 />
                                 <button
                                     className="collab-btn small"
@@ -133,7 +137,11 @@ function MyCollabs() {
                                     id={collab.id}
                                     firstName={collab.first_name}
                                     lastName={collab.last_name}
-                                    imgUrl={collab.img_url}
+                                    imgUrl={
+                                        collab.img_url
+                                            ? collab.img_url
+                                            : "/images/placeholder.png"
+                                    }
                                 />
                                 <button
                                     className="collab-btn small"
@@ -170,7 +178,11 @@ function MyCollabs() {
                                     id={collab.id}
                                     firstName={collab.first_name}
                                     lastName={collab.last_name}
-                                    imgUrl={collab.img_url}
+                                    imgUrl={
+                                        collab.img_url
+                                            ? collab.img_url
+                                            : "/images/placeholder.png"
+                                    }
                                 />
                                 <button
                                     className="collab-btn small"
