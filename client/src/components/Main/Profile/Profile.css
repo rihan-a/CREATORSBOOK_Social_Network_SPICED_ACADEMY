@@ -72,6 +72,18 @@
     font-size: 0.8rem;
 }
 
+.upload-pp-btn {
+    background-color: aqua;
+    top: 280px;
+}
+
+.upload-txt {
+    height: 20px;
+    background-color: aqua;
+    color: red;
+    z-index: 999;
+}
+
 .modal-uploader .upload-btn {
     margin-top: 10px;
     width: 100%;
@@ -138,6 +150,7 @@
     bottom: 10px;
     background-color: rgba(255, 255, 255, 0.549);
     color: black;
+    font-size: 1rem;
 }
 
 .profileModal span:hover {

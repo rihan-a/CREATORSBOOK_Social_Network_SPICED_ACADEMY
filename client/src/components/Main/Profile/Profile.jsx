@@ -30,11 +30,9 @@ function Profile(props) {
                 </span>
                 <div className="profile-picture-uploader">
                     <img src={props.imgUrlHandler} alt="" />
-                    <span
-                        className="material-symbols-outlined edit-icon"
-                        onClick={toggleModal}
-                    >
-                        edit
+
+                    <span className="edit-icon" onClick={toggleModal}>
+                        Upload Profile Picture
                     </span>
                 </div>
                 {modalToggle == true && (
