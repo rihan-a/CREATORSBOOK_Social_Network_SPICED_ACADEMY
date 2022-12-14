@@ -65,7 +65,14 @@ function Chat() {
                         }
                     >
                         <div className="chat-profile-pic">
-                            <img src={message.img_url} alt="profile picture" />
+                            <img
+                                src={
+                                    message.img_url
+                                        ? message.img_url
+                                        : "/images/placeholder.png"
+                                }
+                                alt="profile picture"
+                            />
                         </div>
 
                         <div
