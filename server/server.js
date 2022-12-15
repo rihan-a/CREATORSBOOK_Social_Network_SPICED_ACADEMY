@@ -41,10 +41,21 @@ const cookieSessionMiddleware = cookieSession({
 });
 
 // INTIATE SOCKET IO 
+// const io = require("socket.io")(server, {
+//     allowRequest: (req, callback) =>
+//         callback(null, req.headers.referer.startsWith("https://creatorsbook.onrender.com" && "https://www.creatorsbook.de")),
+
+// });
+
 const io = require("socket.io")(server, {
-    allowRequest: (req, callback) =>
-        callback(null, req.headers.referer.startsWith("https://creatorsbook.onrender.com" || "https://www.rihan.info")),
+    cors: {
+        origin: ["https://creatorsbook.onrender.com", "https://www.creatorsbook.de"],
+        allowedHeaders: ["my-custom-header"],
+        credentials: true,
+    }
 });
+
+
 
 io.use((socket, next) => {
     cookieSessionMiddleware(socket.request, socket.request.res, next);
