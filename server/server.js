@@ -49,7 +49,7 @@ const cookieSessionMiddleware = cookieSession({
 
 const io = require("socket.io")(server, {
     cors: {
-        origin: ["https://creatorsbook.onrender.com", "https://www.creatorsbook.de"],
+        origin: ["https://www.creatorsbook.de"],
         allowedHeaders: ["my-custom-header"],
         credentials: true,
     }
