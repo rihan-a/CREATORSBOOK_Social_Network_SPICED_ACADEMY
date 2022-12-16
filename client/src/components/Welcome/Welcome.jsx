@@ -68,15 +68,18 @@ function Welcome() {
                     A global community of artists dedicated to creative
                     excellence. Built by artists, for artists.
                 </h3>
-            </div>
 
-            <BrowserRouter>
-                <Routes>
-                    <Route exact path="/" element={<Registration />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/password/reset" element={<ResetPassword />} />
-                </Routes>
-            </BrowserRouter>
+                <BrowserRouter>
+                    <Routes>
+                        <Route exact path="/" element={<Registration />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route
+                            path="/password/reset"
+                            element={<ResetPassword />}
+                        />
+                    </Routes>
+                </BrowserRouter>
+            </div>
         </div>
     );
 }
