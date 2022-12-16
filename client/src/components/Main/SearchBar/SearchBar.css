@@ -1,5 +1,7 @@
 .search-area {
-    margin: 40px auto;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 40px;
     width: 65%;
     height: 45px;
     border-radius: 25px;
