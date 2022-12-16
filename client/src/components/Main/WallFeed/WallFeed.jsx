@@ -3,6 +3,7 @@ import FeedPost from "./FeedPost/FeedPost";
 import PostUploader from "./PostUploader/PostUploader";
 import { getPosts } from "../../../redux/features/posts/postsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { activateNavBar } from "../../../redux/features/navBar/navBarSlice";
 import "./WallFeed.css";
 
 function WallFeed() {
@@ -13,6 +14,14 @@ function WallFeed() {
     const uploaderModalHandler = () => {
         setUploaderModal(!uploaderModalToggle);
     };
+
+    //highlight nav-bar link when the component get mounted
+    useEffect(() => {
+        dispatch(activateNavBar("feed"));
+        return function deactivateNavBar() {
+            dispatch(activateNavBar(""));
+        };
+    }, []);
 
     useEffect(() => {
         fetch("/api/posts")
