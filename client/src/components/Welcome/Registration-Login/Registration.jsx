@@ -36,6 +36,10 @@ class Registration extends Component {
                 console.log({ response });
                 if (response.success == true) {
                     location.reload();
+                } else {
+                    this.setState({
+                        error: response.error,
+                    });
                 }
             })
             .catch((err) => {
