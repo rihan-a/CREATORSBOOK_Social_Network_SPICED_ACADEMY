@@ -38,13 +38,12 @@
 
 .nav-bar .profile-picture {
     margin-top: 5px;
-    width: 45px;
+    width: 50px;
     aspect-ratio: 1/1;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    background-color: brown;
 }
 
 .nav-bar .profile-picture:hover {
