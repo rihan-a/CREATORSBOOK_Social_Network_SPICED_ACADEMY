@@ -4,18 +4,20 @@
 }
 
 .post-btn-container {
-    width: 100%;
+    width: 95%;
     margin: auto;
-    margin-top: 80px;
+    margin-top: -65px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    position: fixed;
+    z-index: 999;
 }
 .post-btn {
     color: var(--backgroundColor);
     background-color: var(--textColor);
-    width: 80px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,7 +39,7 @@
 
 .feed-container {
     margin: auto;
-    margin-top: 20px;
+    margin-top: 150px;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 3fr));
@@ -147,3 +149,20 @@
     color: white;
     border: solid 1px white;
 } */
+
+/* -------  Small Screens -------- */
+
+@media (max-width: 768px) {
+    .feed-container {
+        width: 95%;
+    }
+
+    .post-btn {
+        width: 45px;
+        height: 45px;
+    }
+
+    .post-btn-container {
+        width: 92.5%;
+    }
+}
