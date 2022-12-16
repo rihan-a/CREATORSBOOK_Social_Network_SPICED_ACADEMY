@@ -1,6 +1,5 @@
 import ImageUploader from "./ImageUploader";
 import BioEditor from "./BioEditor/BioEditor";
-import Logout from "../NavBar/Logout";
 import { useState } from "react";
 
 import "./Profile.css";
@@ -43,8 +42,6 @@ function Profile(props) {
                 )}
 
                 <BioEditor bioHandler={props.bioHandler} />
-
-                <Logout />
             </div>
         </div>
     );
