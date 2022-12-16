@@ -33,3 +33,9 @@
     height: 35px;
     margin-top: 4px;
 }
+
+@media (max-width: 768px) {
+    .search-area {
+        width: 90%;
+    }
+}

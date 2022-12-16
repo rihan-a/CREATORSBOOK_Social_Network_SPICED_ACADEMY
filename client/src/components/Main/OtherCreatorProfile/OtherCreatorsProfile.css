@@ -54,3 +54,10 @@
 .creator-modal-img-container span:hover {
     color: var(--accentColor);
 }
+
+@media (max-width: 768px) {
+    .creator-modal {
+        width: 90%;
+        top: 80px;
+    }
+}

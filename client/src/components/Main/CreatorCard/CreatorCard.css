@@ -7,7 +7,7 @@
     align-items: center;
     gap: 2%;
     row-gap: 1.5rem;
-    margin-bottom: 5%;
+    margin-bottom: 1%;
 }
 
 .creators-container .creator-card {
@@ -42,4 +42,33 @@
     margin: 10px;
     padding-bottom: 5px;
     font-weight: 400;
+}
+
+.possible-collabs {
+    margin-top: 80px;
+}
+
+.possible-collabs h3 {
+    margin: auto;
+    width: 100%;
+    padding: 15px 0;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .creators-container {
+        width: 95%;
+        margin-bottom: 2%;
+    }
+    .creators-container .creator-card {
+        width: 49%;
+    }
+    .creators-container {
+        margin-top: 20px;
+    }
+    .possible-collabs h3 {
+        margin: auto;
+        width: 95%;
+        padding: 5px 0;
+    }
 }
