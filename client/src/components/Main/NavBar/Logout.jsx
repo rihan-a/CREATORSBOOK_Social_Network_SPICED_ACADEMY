@@ -13,8 +13,7 @@ function Logout() {
 
     return (
         <>
-            <div className="logout-btn" onClick={logOutHandler}>
-                <div className="material-symbols-outlined">logout</div>
+            <div className="nav-link" onClick={logOutHandler}>
                 <div> LOGOUT</div>
             </div>
         </>
