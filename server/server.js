@@ -121,7 +121,7 @@ app.post("/register", (req, res) => {
     //console.log(req.body);
     const { firstName, lastName, email, password } = req.body;
 
-    if (
+    if (firstName == undefined || lastName == undefined || email == undefined || password == undefined ||
         firstName.trim() == "" ||
         lastName.trim() == "" ||
         email.trim() == "" ||
@@ -175,7 +175,7 @@ app.post("/login", (req, res) => {
     //read data sent by the user in the form!
     const { email, password } = req.body;
 
-    if (email.trim() !== "" || password.trim() !== "") {
+    if (email == undefined || password == undefined || email.trim() !== "" || password.trim() !== "") {
         getCreatorByEmail(email).then((user) => {
             //console.log(user);
             if (user) {
