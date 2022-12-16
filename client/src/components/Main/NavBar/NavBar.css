@@ -8,7 +8,7 @@
 
 .nav-bar .logo-svg {
     margin: 20px;
-    width: 22vh;
+    width: 25vh;
     min-width: 150px;
     fill: var(--textColor);
     cursor: pointer;
@@ -25,6 +25,7 @@
     cursor: pointer;
     text-decoration: none;
     user-select: none;
+    display: none;
 }
 
 .nav-bar .nav-link:hover {
@@ -52,4 +53,12 @@
 
 .nav-bar .active {
     color: var(--accentColor);
+}
+
+/* --- Hamburger Mneu --- */
+.nav-bar svg {
+    fill: var(--textColor);
+}
+
+@media (max-width: 768px) {
 }
