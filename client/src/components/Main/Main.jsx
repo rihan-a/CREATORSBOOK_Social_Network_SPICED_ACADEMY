@@ -146,7 +146,7 @@ function Main() {
                     )}
                 </BrowserRouter>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </>
     );
 }
