@@ -87,56 +87,67 @@ function Main() {
     }, [firstName, lastName, imgUrl, bio]);
 
     return (
-        <div className="main">
-            <BrowserRouter>
-                <NavBar openModalHandler={toggleModal} imgUrlHandler={imgUrl} />
-                <Routes>
-                    <Route path="/mycollabs" element={<MyCollabs />}></Route>
-                    <Route path="/creators" element={<FindCreators />}></Route>
-                    <Route
-                        path="/creators/:id"
-                        element={<OtherCreatorProfile />}
-                    ></Route>
-                    <Route exact path="/" element={<WallFeed />}></Route>
-                    <Route path="/chat" element={<Chat />}></Route>
-                </Routes>
+        <>
+            <div className="main">
+                <BrowserRouter>
+                    <NavBar
+                        openModalHandler={toggleModal}
+                        imgUrlHandler={imgUrl}
+                    />
+                    <Routes>
+                        <Route
+                            path="/mycollabs"
+                            element={<MyCollabs />}
+                        ></Route>
+                        <Route
+                            path="/creators"
+                            element={<FindCreators />}
+                        ></Route>
+                        <Route
+                            path="/creators/:id"
+                            element={<OtherCreatorProfile />}
+                        ></Route>
+                        <Route exact path="/" element={<WallFeed />}></Route>
+                        <Route path="/chat" element={<Chat />}></Route>
+                    </Routes>
 
-                {modalToggle == true && (
-                    <>
-                        {profilePicError != "" && (
-                            <p className="profile-pic-error">
-                                {profilePicError}
-                            </p>
-                        )}
+                    {modalToggle == true && (
+                        <>
+                            {profilePicError != "" && (
+                                <p className="profile-pic-error">
+                                    {profilePicError}
+                                </p>
+                            )}
 
-                        <Profile
-                            closeModalHandler={closeUploader}
-                            uploadImgHandler={uploadImage}
-                            imgUrlHandler={imgUrl}
-                            firstNameHandler={firstName}
-                            lastNameHandler={lastName}
-                            // errorHandler={error}
-                            bioHandler={bio}
-                        ></Profile>
-                        {loading == true && (
-                            <div className="loading-spinner-profile">
-                                <ThreeDots
-                                    height="100"
-                                    width="100"
-                                    radius="9"
-                                    color="var(--accentColor)"
-                                    ariaLabel="three-dots-loading"
-                                    wrapperStyle={{}}
-                                    wrapperClassName=""
-                                    visible={true}
-                                />
-                            </div>
-                        )}
-                    </>
-                )}
-            </BrowserRouter>
+                            <Profile
+                                closeModalHandler={closeUploader}
+                                uploadImgHandler={uploadImage}
+                                imgUrlHandler={imgUrl}
+                                firstNameHandler={firstName}
+                                lastNameHandler={lastName}
+                                // errorHandler={error}
+                                bioHandler={bio}
+                            ></Profile>
+                            {loading == true && (
+                                <div className="loading-spinner-profile">
+                                    <ThreeDots
+                                        height="100"
+                                        width="100"
+                                        radius="9"
+                                        color="var(--accentColor)"
+                                        ariaLabel="three-dots-loading"
+                                        wrapperStyle={{}}
+                                        wrapperClassName=""
+                                        visible={true}
+                                    />
+                                </div>
+                            )}
+                        </>
+                    )}
+                </BrowserRouter>
+            </div>
             <Footer />
-        </div>
+        </>
     );
 }
 export default Main;
