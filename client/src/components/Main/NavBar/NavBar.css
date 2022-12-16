@@ -79,9 +79,6 @@
     fill: var(--textColor);
 }
 
-@media (max-width: 768px) {
-}
-
 .hamburger-menu-container {
     background-color: var(--textColor);
     position: absolute;
@@ -100,4 +97,19 @@
     height: 1px;
     background-color: rgb(176, 176, 176);
     width: 100%;
+}
+
+@media (max-width: 768px) {
+    .nav-bar {
+        padding: 0 8px;
+    }
+    .nav-bar .logo-svg {
+        margin: 20px;
+        width: 180px;
+        min-width: 150px;
+    }
+    .hamburger-menu-container {
+        width: 80%;
+        top: 85px;
+    }
 }
