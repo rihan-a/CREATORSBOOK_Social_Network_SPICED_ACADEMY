@@ -4,6 +4,10 @@
     align-items: center;
     margin: auto;
     width: 95%;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    background-color: var(--backgroundColor);
 }
 
 .nav-bar .logo-svg {
@@ -19,13 +23,13 @@
 }
 
 .nav-bar .nav-link {
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: 500;
-    color: var(--textColor);
+    color: var(--backgroundColor);
     cursor: pointer;
     text-decoration: none;
     user-select: none;
-    display: none;
+    /* display: none; */
 }
 
 .nav-bar .nav-link:hover {
@@ -40,7 +44,9 @@
     overflow: hidden;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    background-color: brown;
 }
+
 .nav-bar .profile-picture:hover {
     border: solid 2px var(--textColor);
 }
@@ -56,9 +62,42 @@
 }
 
 /* --- Hamburger Mneu --- */
+
+.nav-bar .hamburger-menu-btn {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.nav-bar .hamburger-menu-btn:hover svg {
+    fill: var(--accentColor);
+}
+
 .nav-bar svg {
     fill: var(--textColor);
 }
 
 @media (max-width: 768px) {
+}
+
+.hamburger-menu-container {
+    background-color: var(--textColor);
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    border-radius: 10px;
+    width: 20%;
+    top: 80px;
+    z-index: 999;
+}
+
+.nav-bar .menu-line {
+    height: 1px;
+    background-color: rgb(176, 176, 176);
+    width: 100%;
 }
