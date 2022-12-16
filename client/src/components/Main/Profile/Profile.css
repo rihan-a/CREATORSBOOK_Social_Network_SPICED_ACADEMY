@@ -3,8 +3,8 @@
     border-radius: 15px;
     position: absolute;
     width: 400px;
-    top: 80px;
-    right: 35px;
+    top: 150px;
+    right: 2.5%;
     padding: 15px 30px;
 }
 
@@ -235,4 +235,13 @@
     z-index: 999;
     font-weight: 300;
     font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .profileModal {
+        position: fixed;
+        width: 90%;
+        top: 150px;
+        right: 5%;
+    }
 }
