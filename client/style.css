@@ -73,12 +73,6 @@ body {
     font-weight: 300;
 }
 
-.possible-collabs h3 {
-    margin: auto;
-    width: 100%;
-    padding: 15px 0;
-}
-
 @media (max-width: 768px) {
     .welcome-box h3 {
         width: 90%;
