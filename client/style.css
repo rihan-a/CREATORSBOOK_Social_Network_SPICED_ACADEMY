@@ -35,34 +35,59 @@ body {
     color: red;
 }
 
+/* ----------- WELCOME PAGE ----------- */
+
 .welcome-page {
     margin: auto;
     width: 95%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .welcome-box {
-    height: 50%;
+    width: 100%;
+    height: 70%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-top: 150px;
 }
 
 .welcome-box .logo-svg {
-    width: 70%;
-    margin-bottom: 40px;
+    width: 80%;
+    margin-bottom: 20px;
     fill: var(--textColor);
 }
 
 .welcome-box h3 {
     text-align: center;
-    font-size: 1.4rem;
-    margin-bottom: 70px;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 300;
 }
 
 .possible-collabs h3 {
     margin: auto;
     width: 95%;
     padding: 15px 0;
+}
+
+@media (max-width: 768px) {
+    .welcome-box h3 {
+        width: 90%;
+        text-align: start;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    .welcome-box .logo-svg {
+        margin-top: 10px;
+        width: 95%;
+    }
+
+    .welcome-box {
+        width: 100%;
+        height: 95%;
+    }
 }
