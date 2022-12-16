@@ -3,15 +3,23 @@
     user-select: none;
 }
 
+.post-btn-container {
+    width: 95%;
+    margin: auto;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
 .post-btn {
     color: var(--backgroundColor);
     background-color: var(--textColor);
-    width: 100px;
-    height: 35px;
+    width: 80px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 25px;
+    border-radius: 10px;
     cursor: pointer;
     transition: 0.2s ease-in-out;
     user-select: none;
@@ -25,13 +33,6 @@
 
 .rotate {
     transform: rotate(45deg);
-}
-
-.post-btn-container {
-    width: 95%;
-    margin: auto;
-    margin-top: 20px;
-    display: flex;
 }
 
 .feed-container {
