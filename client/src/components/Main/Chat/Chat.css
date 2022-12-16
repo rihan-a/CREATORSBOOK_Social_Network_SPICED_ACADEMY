@@ -1,6 +1,7 @@
 .chat-main-container {
     width: 50%;
     margin: 20px auto;
+    margin-top: 100px;
 }
 
 .msgs-container {
@@ -38,7 +39,6 @@
     /* width: 11%; */
     height: 70px;
     overflow: hidden;
-
     margin: 10px;
 }
 .msg-card .chat-profile-pic img {
@@ -65,11 +65,6 @@
     height: 100%;
 }
 
-.msg-card .message-txt {
-    color: black;
-    word-wrap: break-word;
-}
-
 .msg-card .chat-name-time {
     display: flex;
     justify-content: flex-start;
@@ -87,6 +82,11 @@
     color: rgb(67, 67, 67);
 }
 
+.msg-card .message-txt {
+    color: black;
+    word-wrap: break-word;
+}
+
 .text-area-container {
     width: 100%;
     height: 100px;
@@ -102,6 +102,7 @@
     margin: auto;
 }
 
+/* --- text area and sned button --- */
 .text-area-container textarea {
     background-color: rgb(200, 200, 200);
     margin-top: 10px;
@@ -133,4 +134,37 @@
 .text-area-container button:hover {
     background-color: white;
     color: black;
+}
+
+@media (max-width: 768px) {
+    .chat-main-container {
+        width: 100%;
+        margin: auto;
+        margin-top: 90px;
+    }
+    .msg-card .chat-profile-pic {
+        height: 40px;
+        margin: 10px;
+    }
+    .msg-card .chat-name-msg {
+        max-width: 70%;
+        min-height: 80%;
+    }
+    .msg-card .chat-name-time p {
+        margin-right: 10px;
+        font-size: 0.8rem;
+    }
+    .msg-card .chat-name-time span {
+        font-size: 0.6rem;
+    }
+    .msg-card .message-txt {
+        font-size: 0.9rem;
+    }
+    .text-area-container textarea {
+        width: 80%;
+    }
+
+    .text-area-container button {
+        width: 18%;
+    }
 }
