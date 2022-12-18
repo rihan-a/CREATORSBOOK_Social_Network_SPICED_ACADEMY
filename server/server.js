@@ -80,6 +80,7 @@ app.use(express.static(path.join(__dirname, "uploads")));
 const {
     createUser,
     getCreatorById,
+    getCreatorsByIds,
     getCreatorByEmail,
     addResetCode,
     verifyResetCode,
@@ -530,15 +531,15 @@ app.get("/api/mycollabs", (req, res) => {
 
 // SOCKET IO CHAT ---------------------------------------------------------->
 //-------------------------------------------------------------------------->
-
+const onlineCreators = {};
 io.on("connection", async (socket) => {
-    console.log("[social:socket] incoming socket connection >>>>>>>>>>>>>>>", socket.id);
-
+    console.log("incoming socket connection >>>>>>>>>>>>>>>", socket.id);
     const { userID } = socket.request.session;
-    //console.log(userID);
+
     if (!userID) {
         return socket.disconnect(true);
     }
+
 
     //get the latest 10 messages
     getMessages().then((results) => {
@@ -564,7 +565,45 @@ io.on("connection", async (socket) => {
             io.emit("error", "Message can't be empty!");
         }
     });
+
+    // -------------- ONLINE --------------
+    //-------------------------------------
+    //console.log(userID, "connected");
+
+    // store connected creators userId and socket Id
+    onlineCreators[userID] = socket.id;
+
+    //console.log(onlineCreators);
+
+    // extract user Ids keys and convert them to numbers
+    let ids = Object.keys(onlineCreators).map(Number);
+
+    //console.log("ids", ids);
+
+    // get multiple Creators by Ids from db
+    getCreatorsByIds(ids).then((results) => {
+        //console.log("users", results);
+        io.emit("onlineCreatorsList", results);
+    });
+
+    // ON DISCONNECT ------------------------------------------------------->
+    socket.on("disconnect", () => {
+        // remove diconnected user from the onlineCreators list
+        for (const [key, value] of Object.entries(onlineCreators)) {
+            //console.log(`${key}: ${value}`);
+            if (socket.id == value) {
+                delete onlineCreators[key];
+                io.emit("offlineCreator", key);
+
+            }
+        }
+        //console.log(onlineCreators);
+        //console.log(userID, " disconnected");
+    });
 });
+
+
+
 
 
 // Upload Post Img to AWS and save url and img data to db Route ------------>
