@@ -28,8 +28,17 @@ function getCreatorByEmail(email) {
 
 function getCreatorById(id) {
     return db
-        .query("SELECT first_name, last_name, img_url, bio FROM users WHERE id = $1", [id])
+        .query("SELECT first_name, last_name, img_url, bio ,id FROM users WHERE id = $1", [id])
         .then((result) => result.rows[0]);
+}
+
+
+
+
+function getCreatorsByIds(ids) {
+    return db
+        .query(`SELECT first_name, last_name, img_url,id FROM users WHERE id IN (${ids.join(',')})`)
+        .then((result) => result.rows);
 }
 
 // Reset password codes 
@@ -237,6 +246,7 @@ function getPostsData() {
 module.exports = {
     createUser,
     getCreatorById,
+    getCreatorsByIds,
     getCreatorByEmail,
     addResetCode,
     verifyResetCode,
