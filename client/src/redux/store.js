@@ -5,6 +5,7 @@ import chatReducer from './features/chat/chatSlice';
 import navBarReducer from './features/navBar/navBarSlice';
 import userIdReducer from './features/userId/userIdSlice';
 import postsReducer from './features/posts/postsSlice';
+import onlineCreatorsReducer from '../redux/features/onlineCreators/onlineCreatorsSlice';
 
 const reducer = combineReducers({
     // here we will be adding reducers
@@ -12,7 +13,8 @@ const reducer = combineReducers({
     messages: chatReducer,
     navBarColor: navBarReducer,
     loggedInUserId: userIdReducer,
-    posts: postsReducer
+    posts: postsReducer,
+    onlineCreators: onlineCreatorsReducer
 
 });
 const store = configureStore({
