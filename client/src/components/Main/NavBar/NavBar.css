@@ -7,7 +7,7 @@
     position: fixed;
     top: 0;
     z-index: 999;
-    background-color: var(--backgroundColor);
+    /* background-color: var(--backgroundColor); */
 }
 
 .nav-bar .logo-svg {
@@ -96,6 +96,17 @@
     height: 1px;
     background-color: rgb(176, 176, 176);
     width: 100%;
+}
+
+.nav-bar .online-badge {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: rgb(3, 167, 3);
+    position: absolute;
+    bottom: 5px;
+    right: -5px;
+    border: solid 3px var(--backgroundColor);
 }
 
 @media (max-width: 768px) {
