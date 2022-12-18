@@ -7,6 +7,7 @@ function ProfilePicture(props) {
                     alt="profile-picture"
                     onClick={props.openModalHandler}
                 />
+                <span className="online-badge"></span>
             </div>
         </>
     );
