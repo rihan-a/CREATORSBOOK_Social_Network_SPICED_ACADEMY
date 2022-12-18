@@ -2,10 +2,6 @@ import { useState } from "react";
 import OtherCreatorProfile from "./OtherCreatorProfile/OtherCreatorProfile";
 
 function CollabsCard(props) {
-    // const openCreatorProfile = (e) => {
-    //     props.openCreatorProfileCallBack(e.target.id);
-    //     //console.log(e.target.id);
-    // };
     const [creatorModal, setCreatorModal] = useState(false);
 
     const creatorModalHandler = () => {
@@ -28,6 +24,7 @@ function CollabsCard(props) {
             </div>
             <h4 className="creator-name">
                 {props.firstName} {props.lastName}
+                {props.online && <span className="online-badge"></span>}
             </h4>
             {creatorModal == true && (
                 <OtherCreatorProfile

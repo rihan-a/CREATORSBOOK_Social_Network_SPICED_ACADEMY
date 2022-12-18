@@ -42,6 +42,7 @@
     margin: 10px;
     padding-bottom: 5px;
     font-weight: 400;
+    position: relative;
 }
 
 .possible-collabs {
@@ -53,6 +54,16 @@
     width: 100%;
     padding: 15px 0;
     font-weight: 500;
+}
+
+.creator-name .online-badge {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: rgb(3, 167, 3);
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
 }
 
 @media (max-width: 768px) {

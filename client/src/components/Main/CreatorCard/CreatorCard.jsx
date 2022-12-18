@@ -23,6 +23,7 @@ function CreatorCard(props) {
                 </div>
                 <h4 className="creator-name">
                     {props.firstName} {props.lastName}
+                    {props.online && <span className="online-badge"></span>}
                 </h4>
             </div>
         </>
