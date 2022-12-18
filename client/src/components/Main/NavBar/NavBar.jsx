@@ -99,6 +99,20 @@ function NavBar(props) {
                         >
                             CHAT
                         </Link>
+
+                        <div className="menu-line"></div>
+                        <Link
+                            className={
+                                activeNavBar == "online"
+                                    ? "nav-link active"
+                                    : "nav-link"
+                            }
+                            to="/online"
+                            onClick={hamburgerMenuHandler}
+                        >
+                            ONLINE CREATORS
+                        </Link>
+
                         <div className="menu-line"></div>
 
                         <Logout />
