@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Chat from "./Chat/Chat";
 import WallFeed from "./WallFeed/WallFeed";
 import Footer from "./Footer/Footer";
+import OnlineCreators from "./OnlineCreators/OnlineCreators";
 
 import { useDispatch } from "react-redux";
 import { getLoggedInUserId } from "../../redux/features/userId/userIdSlice";
@@ -109,6 +110,10 @@ function Main() {
                         ></Route>
                         <Route exact path="/" element={<WallFeed />}></Route>
                         <Route path="/chat" element={<Chat />}></Route>
+                        <Route
+                            path="/online"
+                            element={<OnlineCreators />}
+                        ></Route>
                     </Routes>
 
                     {modalToggle == true && (
