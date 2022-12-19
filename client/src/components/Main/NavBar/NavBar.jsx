@@ -49,74 +49,90 @@ function NavBar(props) {
                 <Logo />
 
                 {hamburgerToggle && (
-                    <div className="hamburger-menu-container">
-                        <Link
-                            className={
-                                activeNavBar == "feed"
-                                    ? "nav-link active"
-                                    : "nav-link"
-                            }
-                            to="/"
-                            onClick={hamburgerMenuHandler}
-                        >
-                            CREATORS FEED
-                        </Link>
-                        <div className="menu-line"></div>
+                    <>
+                        <div className="hamburger-menu-container">
+                            <Link
+                                className={
+                                    activeNavBar == "feed"
+                                        ? "nav-link active"
+                                        : "nav-link"
+                                }
+                                to="/"
+                                onClick={hamburgerMenuHandler}
+                            >
+                                CREATORS FEED
+                            </Link>
+                            <div className="menu-line"></div>
+                            <Link
+                                className={
+                                    activeNavBar == "creators"
+                                        ? "nav-link active"
+                                        : "nav-link"
+                                }
+                                to="/creators"
+                                onClick={hamburgerMenuHandler}
+                            >
+                                FIND CREATORS
+                            </Link>
+                            <div className="menu-line"></div>
+                            <Link
+                                className={
+                                    activeNavBar == "collabs"
+                                        ? "nav-link active"
+                                        : "nav-link"
+                                }
+                                to="/mycollabs"
+                                onClick={hamburgerMenuHandler}
+                            >
+                                MY COLLABS
+                            </Link>
+                            <div className="menu-line"></div>
+                            <Link
+                                className={
+                                    activeNavBar == "chat"
+                                        ? "nav-link active"
+                                        : "nav-link"
+                                }
+                                to="/collabspaces"
+                                onClick={hamburgerMenuHandler}
+                            >
+                                COLLAB SPACES <span className="beta">beta</span>
+                            </Link>
+                            <div className="menu-line"></div>
+                            <Link
+                                className={
+                                    activeNavBar == "chat"
+                                        ? "nav-link active"
+                                        : "nav-link"
+                                }
+                                to="/chat"
+                                onClick={hamburgerMenuHandler}
+                            >
+                                CHAT
+                            </Link>
 
-                        <Link
-                            className={
-                                activeNavBar == "collabs"
-                                    ? "nav-link active"
-                                    : "nav-link"
-                            }
-                            to="/mycollabs"
-                            onClick={hamburgerMenuHandler}
-                        >
-                            MY COLLABS
-                        </Link>
-                        <div className="menu-line"></div>
+                            <div className="menu-line"></div>
+                            <Link
+                                className={
+                                    activeNavBar == "online"
+                                        ? "nav-link active"
+                                        : "nav-link"
+                                }
+                                to="/online"
+                                onClick={hamburgerMenuHandler}
+                            >
+                                ONLINE CREATORS
+                            </Link>
 
-                        <Link
-                            className={
-                                activeNavBar == "creators"
-                                    ? "nav-link active"
-                                    : "nav-link"
-                            }
-                            to="/creators"
-                            onClick={hamburgerMenuHandler}
-                        >
-                            FIND CREATORS
-                        </Link>
-                        <div className="menu-line"></div>
-                        <Link
-                            className={
-                                activeNavBar == "chat"
-                                    ? "nav-link active"
-                                    : "nav-link"
-                            }
-                            to="/chat"
-                            onClick={hamburgerMenuHandler}
-                        >
-                            CHAT
-                        </Link>
+                            <div className="menu-line"></div>
 
-                        <div className="menu-line"></div>
-                        <Link
-                            className={
-                                activeNavBar == "online"
-                                    ? "nav-link active"
-                                    : "nav-link"
-                            }
-                            to="/online"
+                            <Logout />
+                        </div>
+                        <div
+                            className="empty-backdrop"
                             onClick={hamburgerMenuHandler}
-                        >
-                            ONLINE CREATORS
-                        </Link>
-
-                        <div className="menu-line"></div>
-
-                        <Logout />
-                    </div>
+                        ></div>
+                    </>
                 )}
 
                 <ProfilePicture
