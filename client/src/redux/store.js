@@ -6,6 +6,7 @@ import navBarReducer from './features/navBar/navBarSlice';
 import userIdReducer from './features/userId/userIdSlice';
 import postsReducer from './features/posts/postsSlice';
 import onlineCreatorsReducer from '../redux/features/onlineCreators/onlineCreatorsSlice';
+import boardReducer from "./features/board/boardSlice";
 
 const reducer = combineReducers({
     // here we will be adding reducers
@@ -14,8 +15,8 @@ const reducer = combineReducers({
     navBarColor: navBarReducer,
     loggedInUserId: userIdReducer,
     posts: postsReducer,
-    onlineCreators: onlineCreatorsReducer
-
+    onlineCreators: onlineCreatorsReducer,
+    board: boardReducer,
 });
 const store = configureStore({
     reducer,
