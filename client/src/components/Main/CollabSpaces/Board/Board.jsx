@@ -81,13 +81,23 @@ function Board() {
             false
         );
 
+        // touch events for touch screens
+        canvas.addEventListener(
+            "touchmove",
+            function (e) {
+                last_mouse.x = mouse.x;
+                last_mouse.y = mouse.y;
+                mouse.x = e.touches[0].pageX - this.offsetLeft;
+                mouse.y = e.touches[0].pageY - this.offsetTop;
+            },
+            false
+        );
+
         /* Drawing on Paint App */
         ctx.lineWidth = 5;
         ctx.lineJoin = "round";
         ctx.lineCap = "round";
         ctx.strokeStyle = `${brushColor}`;
-
-        //drawLine(ctx);
 
         canvas.addEventListener(
             "mousedown",
@@ -101,6 +111,23 @@ function Board() {
             "mouseup",
             function () {
                 canvas.removeEventListener("mousemove", onPaint, false);
+            },
+            false
+        );
+
+        // touch events for touch screens
+        canvas.addEventListener(
+            "touchstart",
+            function () {
+                canvas.addEventListener("touchstart", onPaint, false);
+            },
+            false
+        );
+
+        canvas.addEventListener(
+            "touchend",
+            function () {
+                canvas.removeEventListener("touchend", onPaint, false);
             },
             false
         );
