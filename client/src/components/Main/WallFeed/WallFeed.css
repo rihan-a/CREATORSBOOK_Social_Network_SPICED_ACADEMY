@@ -11,7 +11,7 @@
     justify-content: flex-end;
     align-items: center;
     position: fixed;
-    z-index: 999;
+    z-index: 99;
 }
 .post-btn {
     color: var(--backgroundColor);
