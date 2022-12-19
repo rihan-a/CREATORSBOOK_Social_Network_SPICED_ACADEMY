@@ -52,3 +52,12 @@ CREATE TABLE posts(
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+CREATE TABLE sketches(
+    id SERIAL PRIMARY KEY,
+    sketch text NOT NULL,
+    creator_1_id INT NOT NULL REFERENCES users(id),
+    creator_2_id INT NOT NULL REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
