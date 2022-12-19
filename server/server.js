@@ -97,6 +97,8 @@ const {
     savePostData,
     getPostsData,
     getLastPostById,
+    storeSketchData,
+    getSketchData
 } = require("./db");
 
 
@@ -236,7 +238,7 @@ app.post("/password/reset/start", (req, res) => {
                 let username = result.first_name + " " + result.last_name;
 
                 sendCodeEmail(username, secretCode);
-                addResetCode({ email: email, reset_code: secretCode }).then((result) => {
+                addResetCode({ email: email, reset_code: secretCode }).then(() => {
                     //console.log(result);
                     return res.json({ success: true });
                 });
@@ -266,7 +268,7 @@ app.post("/password/reset/verify", (req, res) => {
         if (result.rowCount > 0) {
             // Add Hashed password to database users table
             const hashedPassword = bcrypt.hashSync(password, salt);
-            updatePasswordByEmail({ password: hashedPassword, email: email }).then((results) => { }).catch((err) => {
+            updatePasswordByEmail({ password: hashedPassword, email: email }).then(() => { }).catch((err) => {
                 console.log(err);
                 return res.json({
                     error: "Something went wrong!",
@@ -600,9 +602,23 @@ io.on("connection", async (socket) => {
         //console.log(onlineCreators);
         //console.log(userID, " disconnected");
     });
+
+    // ----- CANVAS -  COLAB SKETCHING  ------------------------------------------->
+
+    socket.on("canvas-data", (data) => {
+        socket.broadcast.emit('canvas-data', data);
+    });
+
+    socket.on("canvas-data-to-db", (data) => {
+        // console.log("sketch to save", data);
+        storeSketchData({ sketch: data, creator_1_id: userID, creator_2_id: 2 }).then().catch(err => console.log(err));
+    });
+
+    socket.on('clear-board', () => {
+        socket.broadcast.emit('clear-board');
+    });
+
 });
-
-
 
 
 
