@@ -242,6 +242,33 @@ function getPostsData() {
         .catch(err => console.log(err));
 }
 
+
+
+function storeSketchData({ sketch, creator_1_id, creator_2_id }) {
+    return db
+        .query(
+            `INSERT INTO sketches (sketch, creator_1_id, creator_2_id)
+    VALUES ($1, $2, $3)`,
+            [sketch, creator_1_id, creator_2_id]
+        )
+        .then((result) => result.rows[0]);
+}
+
+
+function getSketchData(creator_id) {
+    return db
+        .query(
+            `SELECT first_name,last_name,img_url, id, sketch, creator_1_id, creator_2_id
+    FROM users JOIN sketches
+    ON sketches.creator_1_id = $1 OR sketches.creator_2_id = $1
+    `, [creator_id])
+        .then((result) => result.rows).catch(err => console.log(err));
+}
+
+
+
+
+
 //-------------------------------------------------------------------->
 module.exports = {
     createUser,
@@ -262,5 +289,7 @@ module.exports = {
     getLastMessageById,
     savePostData,
     getPostsData,
-    getLastPostById
+    getLastPostById,
+    storeSketchData,
+    getSketchData
 };
