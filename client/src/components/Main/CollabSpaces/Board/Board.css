@@ -11,3 +11,11 @@
     width: 750px;
     height: 600px;
 }
+
+@media (max-width: 768px) {
+    #sketch {
+        margin: auto;
+        width: 95vw;
+        height: 70vh;
+    }
+}
