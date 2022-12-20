@@ -1,56 +1,38 @@
-import { useState } from "react";
-// import Board from "./Board/Board";
 import WhiteBoard from "./Board/WhiteBoard";
-import { useDispatch } from "react-redux";
-import {
-    setBrushColor,
-    setBrushSize,
-} from "../../../redux/features/board/boardSlice";
+import CollabUser from "./CollabUser/CollabUser";
+import { useSelector } from "react-redux";
 
 import "./CollabSpaces.css";
 
 function CollabSpaces() {
-    const dispatch = useDispatch();
-    const [brushColor, setColor] = useState("#00000");
-    const [brushSize, setSize] = useState(15);
+    const loggedInUser = useSelector((state) => {
+        return state.loggedInUserData.userData;
+    });
 
-    const changeColorHandler = (e) => {
-        setColor(e.target.value);
-        dispatch(setBrushColor(e.target.value));
-    };
-
-    const changeSizeHandler = (e) => {
-        setSize(e.target.value);
-        dispatch(setBrushSize(e.target.value));
-    };
+    const otherUserData = useSelector((state) => {
+        return state.loggedInUserData.otherUserData;
+    });
 
     return (
         <>
             <div className="collab-spaces-container">
-                <div> COLLAB - SPACES</div>
-                <div className="tools-section">
-                    <div className="color-picker-container">
-                        Select color : &nbsp;
-                        <input
-                            type="color"
-                            value={brushColor}
-                            onChange={changeColorHandler}
-                        />
-                    </div>
-                    <div className="brushsize-container">
-                        Select brush size : &nbsp;
-                        <select value={brushSize} onChange={changeSizeHandler}>
-                            <option>5</option>
-                            <option>10</option>
-                            <option>15</option>
-                            <option>20</option>
-                            <option>25</option>
-                        </select>
-                    </div>
-                </div>
-
-                {/* <Board /> */}
+                {otherUserData.first_name ? (
+                    <CollabUser
+                        firstName={otherUserData.first_name}
+                        lastName={otherUserData.last_name}
+                        img={otherUserData.img_url}
+                        other={true}
+                    />
+                ) : (
+                    <div className="creator-side"></div>
+                )}
                 <WhiteBoard />
+
+                <CollabUser
+                    firstName={loggedInUser.first_name}
+                    lastName={loggedInUser.last_name}
+                    img={loggedInUser.img_url}
+                />
             </div>
         </>
     );
