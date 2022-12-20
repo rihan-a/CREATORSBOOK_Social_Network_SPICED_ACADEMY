@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CollabsCard from "./CollabsCard";
+import { Link } from "react-router-dom";
 
 import { activateNavBar } from "../../redux/features/navBar/navBarSlice";
+import { getOtherUserData } from "../../redux/features/userId/userDataSlice";
 
 import {
     getCollabs,
@@ -11,7 +13,7 @@ import {
 } from "../../redux/features/collabs/collabsSlice";
 
 function MyCollabs() {
-    const [error, setError] = useState("");
+    // const [error, setError] = useState("");
 
     const dispatch = useDispatch();
 
@@ -66,6 +68,10 @@ function MyCollabs() {
         );
     });
 
+    const handleOtherUserData = (collab) => {
+        dispatch(getOtherUserData(collab));
+    };
+
     useEffect(() => {
         fetch("/api/mycollabs")
             .then((result) => result.json())
@@ -116,6 +122,15 @@ function MyCollabs() {
                                     </span>
                                     End Collab
                                 </button>
+
+                                <Link
+                                    className="collab-btn small link"
+                                    to="/collabspaces"
+                                    onClick={() => handleOtherUserData(collab)}
+                                >
+                                    Start a Collab Space
+                                    <span className="beta">beta</span>
+                                </Link>
                             </div>
                         );
                     })}

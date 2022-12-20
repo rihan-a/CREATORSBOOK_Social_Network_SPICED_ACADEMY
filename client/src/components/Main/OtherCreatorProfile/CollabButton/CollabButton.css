@@ -20,6 +20,18 @@
     font-size: 0.85rem;
 }
 
+.collab-btn.small.link {
+    width: 90%;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+.collab-btn.small.link .beta {
+    margin-top: 5px;
+    margin-left: 5px;
+    color: red;
+    font-size: 0.7rem;
+}
+
 .collab-btn span {
     margin-right: 7px;
 }
