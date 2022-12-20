@@ -67,5 +67,12 @@
         margin: auto;
         width: 95vw;
         height: 60vh;
+        order: 1;
+        margin-bottom: 180px;
+    }
+    .tools-container {
+        flex-wrap: wrap;
+        height: 140px;
+        padding: 15px;
     }
 }
