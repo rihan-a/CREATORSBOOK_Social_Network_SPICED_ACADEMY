@@ -92,3 +92,10 @@
     position: absolute;
     top: -90px;
 }
+
+@media (max-width: 768px) {
+    .img-upload-container {
+        width: 85%;
+        aspect-ratio: 1/0.85;
+    }
+}

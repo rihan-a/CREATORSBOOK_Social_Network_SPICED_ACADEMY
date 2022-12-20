@@ -240,8 +240,9 @@
 @media (max-width: 768px) {
     .profileModal {
         position: fixed;
-        width: 90%;
-        top: 150px;
-        right: 5%;
+        width: 91.5%;
+        top: 80px;
+        right: 4.5%;
+        z-index: 99;
     }
 }
