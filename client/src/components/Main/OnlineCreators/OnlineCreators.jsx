@@ -5,7 +5,7 @@ import CollabsCard from "../CollabsCard";
 function OnlineCreators() {
     // get Id of the logged in Creator
     const loggedInCreatorId = useSelector((state) => {
-        return state.loggedInUserId.userId;
+        return state.loggedInUserData.userData.id;
     });
 
     // get Online creators data from redux
