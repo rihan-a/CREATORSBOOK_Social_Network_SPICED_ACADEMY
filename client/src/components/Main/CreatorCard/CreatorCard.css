@@ -43,6 +43,7 @@
     padding-bottom: 5px;
     font-weight: 400;
     position: relative;
+    font-size: 0.95rem;
 }
 
 .possible-collabs {
@@ -76,6 +77,9 @@
     }
     .creators-container {
         margin-top: 20px;
+    }
+    .creator-card .creator-name {
+        font-size: 0.9rem;
     }
     .possible-collabs h3 {
         margin: auto;
