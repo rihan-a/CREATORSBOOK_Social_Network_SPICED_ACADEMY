@@ -1,7 +1,6 @@
 .canvas-container {
-    margin: auto;
-    height: 600px;
-    width: 50%;
+    height: 550px;
+    width: 55%;
 }
 
 .react-canvas {
@@ -14,6 +13,53 @@
     margin: auto;
     border-radius: 20px !important;
     cursor: crosshair;
+}
+
+.tools-container {
+    background-color: var(--cardBackground);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.tools-container button {
+    width: 60px;
+    height: 30px;
+    background-color: var(--textColor);
+    border: none;
+    border-radius: 10px;
+    color: var(--backgroundColor);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.tools-container button:hover {
+    color: var(--textColor);
+    background-color: var(--backgroundColor);
+}
+
+.color-picker-container,
+.brushsize-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    height: 45px;
+    color: var(--textColor);
+}
+
+.eraser-switch {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 120px;
+    color: var(--textColor);
 }
 
 @media (max-width: 768px) {
