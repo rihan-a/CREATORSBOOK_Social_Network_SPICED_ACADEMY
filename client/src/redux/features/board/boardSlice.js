@@ -4,7 +4,7 @@ const boardSlice = createSlice({
     name: "board",
     initialState: {
         brushColor: "#000000",
-        brushSize: 5,
+        brushSize: 15,
         recentSketch: "",
     },
     // action creators
