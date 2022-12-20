@@ -12,7 +12,7 @@ import OnlineCreators from "./OnlineCreators/OnlineCreators";
 import CollabSpaces from "./CollabSpaces/CollabSpaces";
 
 import { useDispatch } from "react-redux";
-import { getLoggedInUserId } from "../../redux/features/userId/userIdSlice";
+import { getLoggedInUserData } from "../../redux/features/userId/userDataSlice";
 
 import { ThreeDots } from "react-loader-spinner";
 
@@ -73,9 +73,9 @@ function Main() {
             .then((result) => result.json())
             .then((result) => {
                 //console.log(result);
+                dispatch(getLoggedInUserData(result.userData));
                 setFirstName(result.userData.first_name);
                 setLastName(result.userData.last_name);
-                dispatch(getLoggedInUserId(result.id));
 
                 if (result.userData) {
                     setBio(result.userData.bio);
