@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Board from "./Board/Board";
+// import Board from "./Board/Board";
+import WhiteBoard from "./Board/WhiteBoard";
 import { useDispatch } from "react-redux";
 import {
     setBrushColor,
@@ -11,7 +12,7 @@ import "./CollabSpaces.css";
 function CollabSpaces() {
     const dispatch = useDispatch();
     const [brushColor, setColor] = useState("#00000");
-    const [brushSize, setSize] = useState(5);
+    const [brushSize, setSize] = useState(15);
 
     const changeColorHandler = (e) => {
         setColor(e.target.value);
@@ -48,7 +49,8 @@ function CollabSpaces() {
                     </div>
                 </div>
 
-                <Board />
+                {/* <Board /> */}
+                <WhiteBoard />
             </div>
         </>
     );
