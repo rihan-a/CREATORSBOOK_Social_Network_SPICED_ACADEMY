@@ -47,7 +47,7 @@ function Chat() {
     }, []);
 
     const loggedInUserId = useSelector((state) => {
-        return state.loggedInUserId.userId;
+        return state.loggedInUserData.userData.id;
     });
 
     console.log(loggedInUserId);
