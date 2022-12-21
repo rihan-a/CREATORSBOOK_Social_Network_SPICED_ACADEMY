@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { socket } from "../../../../socket";
 import Switch from "react-switch";
 
-import {
-    setBrushColor,
-    setBrushSize,
-} from "../../../../redux/features/board/boardSlice";
+// import {
+//     setBrushColor,
+//     setBrushSize,
+// } from "../../../../redux/features/board/boardSlice";
 
 import "./Board.css";
 
@@ -16,14 +16,14 @@ const WhiteBoard = () => {
     const canvas = useRef();
 
     // states for Brush color and Size
-    const [brushColorState, setColor] = useState("#00000");
+    const [brushColorState, setColor] = useState("#000000");
     const [brushSizeState, setSize] = useState(15);
     const [spaceColorState, setSpaceColor] = useState("#FFFFFF");
 
     // OnChange functions to handle change of brush size and color
     const changeColorHandler = (e) => {
         setColor(e.target.value);
-        dispatch(setBrushColor(e.target.value));
+        //dispatch(setBrushColor(e.target.value));
     };
     const changeSpaceColorHandler = (e) => {
         setSpaceColor(e.target.value);
@@ -31,7 +31,7 @@ const WhiteBoard = () => {
 
     const changeSizeHandler = (e) => {
         setSize(e.target.value);
-        dispatch(setBrushSize(e.target.value));
+        //dispatch(setBrushSize(e.target.value));
     };
 
     // Eraser switch state
@@ -42,13 +42,13 @@ const WhiteBoard = () => {
     };
 
     // getting brush color and size from redux
-    const brushColor = useSelector((state) => {
-        return state.board.brushColor;
-    });
+    // const brushColor = useSelector((state) => {
+    //     return state.board.brushColor;
+    // });
 
-    const brushSize = useSelector((state) => {
-        return state.board.brushSize;
-    });
+    // const brushSize = useSelector((state) => {
+    //     return state.board.brushSize;
+    // });
 
     // updating sketch from other users
     socket.on("canvas-data", (CanvasPath) => {
@@ -74,63 +74,69 @@ const WhiteBoard = () => {
 
     return (
         <div className="canvas-container">
-            <div className="tools-container">
-                <div className="color-picker-container">
-                    Space Color : &nbsp;
-                    <input
-                        type="color"
-                        value={spaceColorState}
-                        onChange={changeSpaceColorHandler}
-                    />
-                </div>
-                <div className="color-picker-container">
-                    Brush Color : &nbsp;
-                    <input
-                        type="color"
-                        value={brushColorState}
-                        onChange={changeColorHandler}
-                    />
-                </div>
-                <div className="brushsize-container">
-                    Brush Size : &nbsp;
-                    <select value={brushSizeState} onChange={changeSizeHandler}>
-                        <option>5</option>
-                        <option>10</option>
-                        <option>15</option>
-                        <option>20</option>
-                        <option>25</option>
-                        <option>30</option>
-                    </select>
-                </div>
-                <button
-                    onClick={() => {
-                        canvas.current.clearCanvas();
-                    }}
-                >
-                    Clear
-                </button>
+            <div className="tools-container-wrapper">
+                <div className="tools-container">
+                    <div className="color-picker-container">
+                        Space Color : &nbsp;
+                        <input
+                            type="color"
+                            value={spaceColorState}
+                            onChange={changeSpaceColorHandler}
+                        />
+                    </div>
+                    <div className="color-picker-container">
+                        Brush Color : &nbsp;
+                        <input
+                            type="color"
+                            value={brushColorState}
+                            onChange={changeColorHandler}
+                        />
+                    </div>
+                    <div className="brushsize-container">
+                        Brush Size : &nbsp;
+                        <select
+                            value={brushSizeState}
+                            onChange={changeSizeHandler}
+                        >
+                            <option>5</option>
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                            <option>25</option>
+                            <option>30</option>
+                        </select>
+                    </div>
+                    <button
+                        onClick={() => {
+                            canvas.current.clearCanvas();
+                            socket.emit("clear-board", true);
+                        }}
+                    >
+                        Clear
+                    </button>
 
-                <div className="eraser-switch">
-                    <span>Eraser</span>
-                    <Switch
-                        onChange={handleChange}
-                        checked={checked}
-                        onColor="#86d3ff"
-                        onHandleColor="#2693e6"
-                        handleDiameter={30}
-                        uncheckedIcon={false}
-                        checkedIcon={false}
-                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                        height={20}
-                        width={48}
-                        className="react-switch"
-                        id="material-switch"
-                    />
-                </div>
-                <div>
-                    <button onClick={() => exportSketch()}>Export</button>
-                    <a download="test.png" id="downloadPNG"></a>
+                    <div className="eraser-switch">
+                        <span>Eraser</span>
+                        <Switch
+                            onChange={handleChange}
+                            checked={checked}
+                            onColor="#86d3ff"
+                            onHandleColor="#2693e6"
+                            handleDiameter={30}
+                            uncheckedIcon={false}
+                            checkedIcon={false}
+                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                            height={20}
+                            width={48}
+                            className="react-switch"
+                            id="material-switch"
+                        />
+                    </div>
+                    <div>
+                        <button onClick={() => exportSketch()}>Export</button>
+                        <a download="test.png" id="downloadPNG"></a>
+                    </div>
                 </div>
             </div>
 
@@ -138,8 +144,8 @@ const WhiteBoard = () => {
                 ref={canvas}
                 className="react-canvas"
                 id="react-canvas"
-                strokeWidth={brushSize}
-                strokeColor={brushColor}
+                strokeWidth={brushSizeState}
+                strokeColor={brushColorState}
                 eraserWidth={20}
                 canvasColor={spaceColorState}
                 onStroke={(CanvasPath) => {
