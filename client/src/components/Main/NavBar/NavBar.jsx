@@ -96,7 +96,7 @@ function NavBar(props) {
                                 to="/collabspaces"
                                 onClick={hamburgerMenuHandler}
                             >
-                                COLLAB SPACE <span className="beta">beta</span>
+                                COLLAB SKETCHING SPACE
                             </Link>
                             <div className="menu-line"></div>
                             <Link
@@ -108,7 +108,7 @@ function NavBar(props) {
                                 to="/collabspaces/ai"
                                 onClick={hamburgerMenuHandler}
                             >
-                                COLLAB SPACE AI
+                                COLLAB AI SPACE
                                 <span className="beta">beta</span>
                             </Link>
 
