@@ -16,12 +16,16 @@ const { uploader } = require("./middleware");
 const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
 
+// import OpenAi modules ----------------------------->
+const { Configuration, OpenAIApi } = require("openai");
+
 
 // import secrete data from dotenv
 const { PORT = 3001,
     SESSION_SECRET,
     AWS_KEY,
-    AWS_SECRET
+    AWS_SECRET,
+    OPENAI_API_KEY
 } = process.env;
 
 
@@ -684,6 +688,32 @@ app.get("/api/posts", (req, res) => {
         }
     });
 });
+
+// AI COLLAB-SPACE end-Point using OpenAi for text to Img prompts--------------------------------------->
+//------------------------------------------------------------------------------------------------------>
+//GET
+const configuration = new Configuration({
+    apiKey: `${OPENAI_API_KEY}`,
+});
+const openai = new OpenAIApi(configuration);
+
+app.post("/api/collabspace/ai", (req, res) => {
+    const { creatorPrompt } = req.body;
+    console.log(creatorPrompt);
+
+    // openai.createImage({
+    //     prompt: creatorPrompt,
+    //     n: 1,
+    //     size: "1024x1024",
+    // }).then((data => {
+    //     console.log(data.data.data[0].url);
+    //     return res.json({ url: data.data.data[0].url });
+    // })).catch(err => { console.log("error is ...", err); });
+
+});
+
+
+
 
 // Logout Route ------------------------------------------------------------>
 //-------------------------------------------------------------------------->
