@@ -14,7 +14,8 @@ function CollabSpaces() {
     });
 
     return (
-        <>
+        <div className="collab-spaces-wrapper">
+            <h2>Real-time Collaborative sketching space</h2>
             <div className="collab-spaces-container">
                 {otherUserData.first_name ? (
                     <CollabUser
@@ -26,6 +27,7 @@ function CollabSpaces() {
                 ) : (
                     <div className="creator-side"></div>
                 )}
+
                 <WhiteBoard />
 
                 <CollabUser
@@ -34,7 +36,7 @@ function CollabSpaces() {
                     img={loggedInUser.img_url}
                 />
             </div>
-        </>
+        </div>
     );
 }
 
