@@ -61,3 +61,15 @@ CREATE TABLE sketches(
     creator_2_id INT NOT NULL REFERENCES users(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+DROP TABLE IF EXISTS aiprompts;
+
+
+CREATE TABLE aiprompts(
+    id SERIAL PRIMARY KEY,
+    count INT NOT NULL,
+    creator_id INT NOT NULL UNIQUE,
+    prompt text NOT NULL, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
