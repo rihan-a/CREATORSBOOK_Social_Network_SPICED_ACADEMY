@@ -16,16 +16,23 @@
     height: 600px;
     margin: auto;
     border-radius: 20px !important;
-    cursor: crosshair;
+    cursor: cell;
 }
 
 .tools-container {
-    background-color: var(--cardBackground);
     display: flex;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
-    height: 60px;
-    padding: 20px;
+}
+.tools-container-wrapper {
+    background-color: var(--cardBackground);
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
     border-radius: 20px;
     margin-bottom: 10px;
 }
