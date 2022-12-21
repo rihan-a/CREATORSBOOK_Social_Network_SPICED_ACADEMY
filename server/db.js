@@ -265,6 +265,27 @@ function getSketchData(creator_id) {
         .then((result) => result.rows).catch(err => console.log(err));
 }
 
+// function to insert AI prompts and count into db
+function insertPrompt({ count, creator_id, prompt }) {
+    return db
+        .query(
+            `INSERT INTO aiprompts ( count,creator_id, prompt)
+        VALUES ($1, $2, $3)
+        ON CONFLICT (creator_id)
+        DO UPDATE SET count=$1, created_at=CURRENT_TIMESTAMP
+    RETURNING *`,
+            [count, creator_id, prompt]
+        )
+        .then((result) => result.rows[0]);
+}
+
+
+function getAiCount(creator_id) {
+    return db
+        .query("SELECT * FROM aiprompts WHERE creator_id = $1", [creator_id])
+        .then((result) => result.rows[0]);
+}
+
 
 
 
@@ -291,5 +312,8 @@ module.exports = {
     getPostsData,
     getLastPostById,
     storeSketchData,
-    getSketchData
+    getSketchData,
+    insertPrompt,
+    getAiCount
+
 };
