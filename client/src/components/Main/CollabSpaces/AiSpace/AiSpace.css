@@ -1,0 +1,66 @@
+.ai-prompt-txtarea {
+    margin-top: 100px;
+}
+
+.ai-prompt-txtarea textarea {
+    margin-top: 20px;
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    background-color: none;
+    background: none;
+    border: solid 1px var(--textColor);
+    padding: 10px;
+    color: var(--textColor);
+    font-size: 1.8rem;
+    color: var(--accentColor);
+    font-weight: 200;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+        sans-serif;
+}
+
+.ai-prompt-txtarea p {
+    background-color: var(--textColor);
+    width: 10%;
+    color: var(--backgroundColor);
+    margin-top: 10px;
+    text-align: center;
+    line-height: 50px;
+    height: 50px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+.ai-prompt-txtarea p:hover {
+    color: var(--textColor);
+    background-color: var(--accentColor);
+}
+
+.ai-output-container {
+    margin: auto;
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ai-img-container {
+    margin: auto;
+    height: 700px;
+    width: 700px;
+    border-radius: 20px;
+}
+
+.ai-output-container img {
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.collabspace-ai-container .loading-spinner {
+    height: 0;
+    position: absolute;
+    top: 300px;
+}
