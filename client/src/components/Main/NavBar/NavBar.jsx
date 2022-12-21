@@ -89,7 +89,7 @@ function NavBar(props) {
                             <div className="menu-line"></div>
                             <Link
                                 className={
-                                    activeNavBar == "chat"
+                                    activeNavBar == "collabs"
                                         ? "nav-link active"
                                         : "nav-link"
                                 }
@@ -98,6 +98,20 @@ function NavBar(props) {
                             >
                                 COLLAB SPACE <span className="beta">beta</span>
                             </Link>
+                            <div className="menu-line"></div>
+                            <Link
+                                className={
+                                    activeNavBar == "collabAI"
+                                        ? "nav-link active"
+                                        : "nav-link"
+                                }
+                                to="/collabspaces/ai"
+                                onClick={hamburgerMenuHandler}
+                            >
+                                COLLAB SPACE AI
+                                <span className="beta">beta</span>
+                            </Link>
+
                             <div className="menu-line"></div>
                             <Link
                                 className={
