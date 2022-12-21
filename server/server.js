@@ -102,7 +102,9 @@ const {
     getPostsData,
     getLastPostById,
     storeSketchData,
-    getSketchData
+    getSketchData,
+    insertPrompt,
+    getAiCount
 } = require("./db");
 
 
@@ -615,12 +617,12 @@ io.on("connection", async (socket) => {
 
     socket.on("canvas-data-to-db", (data) => {
         // console.log("sketch to save", data);
-        storeSketchData({ sketch: data, creator_1_id: userID, creator_2_id: 2 }).then().catch(err => console.log(err));
+        //storeSketchData({ sketch: data, creator_1_id: userID, creator_2_id: 2 }).then().catch(err => console.log(err));
     });
 
-    socket.on('clear-board', () => {
-        socket.broadcast.emit('clear-board');
-    });
+    // socket.on('clear-board', () => {
+    //     socket.broadcast.emit('clear-board');
+    // });
 
 });
 
@@ -697,22 +699,48 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-app.post("/api/collabspace/ai", (req, res) => {
-    const { creatorPrompt } = req.body;
-    console.log(creatorPrompt);
 
-    // openai.createImage({
-    //     prompt: creatorPrompt,
-    //     n: 1,
-    //     size: "1024x1024",
-    // }).then((data => {
-    //     console.log(data.data.data[0].url);
-    //     return res.json({ url: data.data.data[0].url });
-    // })).catch(err => { console.log("error is ...", err); });
+
+app.post("/api/collabspace/ai", (req, res) => {
+    let creator_id = req.session.userID;
+    const { creatorPrompt } = req.body;
+    let count = 0;
+    getAiCount(creator_id).then((result) => {
+        console.log(result);
+        if (result) {
+            count = result.count + 1;
+        }
+        insertPrompt({ count, creator_id, prompt: creatorPrompt }).then((result) => {
+            if (result.count < 11) {
+                openai.createImage({
+                    prompt: creatorPrompt,
+                    n: 1,
+                    size: "1024x1024",
+                }).then((data => {
+                    console.log(data.data.data[0].url);
+                    return res.json({ url: data.data.data[0].url, count: result.count });
+                })).catch(err => { console.log("error is ...", err); });
+            } else {
+                return res.json({ url: "", count: result.count, error: "you have passed your limit of 10 prompts" });
+            }
+
+        }).catch((err) => console.log(err));
+
+    }).catch((err) => console.log(err));
+
 
 });
-
-
+// Get AI prompts count ---------------------------------------------------->
+//-------------------------------------------------------------------------->
+//GET
+app.get("/api/ai/count", (req, res) => {
+    let creator_id = req.session.userID;
+    getAiCount(creator_id).then((count) => {
+        return res.json({
+            count: count
+        });
+    }).catch((err) => console.log(err));
+});
 
 
 // Logout Route ------------------------------------------------------------>
