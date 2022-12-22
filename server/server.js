@@ -705,11 +705,15 @@ app.post("/api/collabspace/ai", (req, res) => {
     let creator_id = req.session.userID;
     const { creatorPrompt } = req.body;
     let count = 0;
+    // get prompt count
     getAiCount(creator_id).then((result) => {
-        console.log(result);
         if (result) {
+            console.log(result);
             count = result.count + 1;
+        } else {
+            count = 1;
         }
+        // insert prompt data into db
         insertPrompt({ count, creator_id, prompt: creatorPrompt }).then((result) => {
             if (result.count < 11) {
                 openai.createImage({
