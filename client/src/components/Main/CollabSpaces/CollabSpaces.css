@@ -21,6 +21,14 @@
 @media (max-width: 768px) {
     .collab-spaces-container {
         flex-direction: column;
-        margin-top: 100px;
+        margin-top: 0px;
+    }
+    .collab-spaces-wrapper {
+        margin-top: 80px;
+        text-align: center;
+    }
+    .collab-spaces-wrapper h2 {
+        color: var(--accentColor);
+        font-size: 1.6rem;
     }
 }
