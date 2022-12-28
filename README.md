@@ -23,9 +23,6 @@ A global community of artists dedicated to creative excellence. Built by artists
 
 ## Screenshots
 
-![localhost_3000_ (3)](https://user-images.githubusercontent.com/90706137/206408393-a06f89f4-d801-4289-864b-76533c71d5fb.png)
-![localhost_3000_creators](https://user-images.githubusercontent.com/90706137/206408412-309cf57d-b26b-48e7-9592-e736768933b5.png)
-![localhost_3000_creators (1)](https://user-images.githubusercontent.com/90706137/206409221-8ea38169-57c9-4bd7-8ffa-ec87021516bc.png)
 
 ## License
 
