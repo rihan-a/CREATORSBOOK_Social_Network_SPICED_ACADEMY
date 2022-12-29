@@ -8,7 +8,6 @@ A global community of artists dedicated to creative excellence. Built by artists
 ## Demo
 www.creatorsbook.de
 
-
 ## Stack:
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -23,6 +22,11 @@ www.creatorsbook.de
 ![AWS S3 & SES](https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
 ## Screenshots
+![demo_login (1)](https://user-images.githubusercontent.com/90706137/209981013-933b4593-13d5-4b16-852e-578c22ba442c.gif)
+
+
+![demo_menu (1)](https://user-images.githubusercontent.com/90706137/209981117-438d6480-9b31-4108-84eb-63e22c3fc97d.gif)
+
 
 
 ## License
