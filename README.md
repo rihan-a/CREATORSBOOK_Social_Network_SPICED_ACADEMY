@@ -8,6 +8,11 @@ A global community of artists dedicated to creative excellence. Built by artists
 ## Demo
 www.creatorsbook.de
 
+You can create an account or use the demo Login details;
+
+email: john.doe@email.com
+password: demo
+
 ## Stack:
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
