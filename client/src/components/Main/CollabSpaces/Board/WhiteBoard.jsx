@@ -1,13 +1,10 @@
 import { useRef, useEffect, useState } from "react";
 import { ReactSketchCanvas } from "react-sketch-canvas";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { socket } from "../../../../socket";
 import Switch from "react-switch";
 
-// import {
-//     setBrushColor,
-//     setBrushSize,
-// } from "../../../../redux/features/board/boardSlice";
+import { activateNavBar } from "../../../../redux/features/navBar/navBarSlice";
 
 import "./Board.css";
 
@@ -41,14 +38,13 @@ const WhiteBoard = () => {
         setChecked(nextChecked);
     };
 
-    // getting brush color and size from redux
-    // const brushColor = useSelector((state) => {
-    //     return state.board.brushColor;
-    // });
-
-    // const brushSize = useSelector((state) => {
-    //     return state.board.brushSize;
-    // });
+    //highlight nav-bar link when the component get mounted
+    useEffect(() => {
+        dispatch(activateNavBar("sketch"));
+        return function deactivateNavBar() {
+            dispatch(activateNavBar(""));
+        };
+    }, []);
 
     // updating sketch from other users
     socket.on("canvas-data", (CanvasPath) => {
