@@ -101,8 +101,6 @@ const {
     savePostData,
     getPostsData,
     getLastPostById,
-    storeSketchData,
-    getSketchData,
     insertPrompt,
     getAiCount
 } = require("./db");
@@ -166,6 +164,7 @@ app.post("/register", (req, res) => {
         })
             .then((result) => {
                 //console.log("created profile", result);
+                console.log(firstName + " " + lastName);
                 req.session.userID = result.id;
                 req.session.userName = { firstName, lastName, email };
                 req.session.logedIn = true;
@@ -191,10 +190,11 @@ app.post("/login", (req, res) => {
                 let id = user.id;
                 if (bcrypt.compareSync(password, user.password)) {
                     console.log("valid user.....");
+
                     let firstname = user.first_name;
                     let lastname = user.last_name;
                     let email = user.email;
-
+                    console.log(firstname + " " + lastname);
                     //console.log(id);
                     req.session.userID = id;
                     //console.log(req.session.userID);
