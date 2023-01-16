@@ -55,6 +55,57 @@ password: demo
 
 ---
 
+### Light mode 
+
+![dmo-dark-light-mode (1)](https://user-images.githubusercontent.com/90706137/210438403-be5eefc2-e59b-47e1-88d4-cf48a4cdff2e.gif)
+
+##
+
+---
+
+### Real-time collaborative sketching 
+
+![demo-sketching (1)](https://user-images.githubusercontent.com/90706137/210438471-cece576a-0980-421d-83f7-f4f6ed202b5e.gif)
+
+##
+
+---
+
+### Image generation using AI - Text to Image 
+
+![demo-ai (1)](https://user-images.githubusercontent.com/90706137/210438475-85fac907-d72b-4c9e-ab0c-7b0669c25883.gif)
+
+##
+
+---
+
+
+
+## For developers
+
+
+Clone the source locally:
+
+```sh
+$ git clone https://github.com/rihan-a/CREATORSBOOK_Social_Network_SPICED_ACADEMY.git
+
+$ cd CREATORSBOOK_Social_Network_SPICED_ACADEMY
+```
+
+
+Install project dependencies:
+
+```sh
+$ npm install
+```
+
+Start the app:
+
+```sh
+$ npm run dev
+```
+
+
 ## License
 
 MIT License
