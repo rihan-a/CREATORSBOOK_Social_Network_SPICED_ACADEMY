@@ -1,24 +1,26 @@
+// NAVBAR COMPONENT
+// Component to render NavBar elements( Hamburger Menu, Logo, Profile Picture )
+
 import Logo from "./Logo";
 import { useState } from "react";
 import ProfilePicture from "./ProfilePicture";
 import Logout from "./Logout";
 import { useSelector } from "react-redux";
 import "./NavBar.css";
-
 import { Link } from "react-router-dom";
 
 function NavBar(props) {
+    // Get activeNavBar state from Redux store
     const activeNavBar = useSelector((state) => {
         return state.navBarColor.navBarActive;
     });
 
     const [hamburgerToggle, setHamburgerToggle] = useState(false);
 
+    // Toggle Hamburger Menu
     const hamburgerMenuHandler = () => {
         setHamburgerToggle(!hamburgerToggle);
     };
-
-    //console.log("navbar", activeNavBar);
 
     return (
         <>
@@ -62,6 +64,7 @@ function NavBar(props) {
                             >
                                 CREATORS FEED
                             </Link>
+
                             <div className="menu-line"></div>
                             <Link
                                 className={
@@ -74,6 +77,7 @@ function NavBar(props) {
                             >
                                 FIND CREATORS
                             </Link>
+
                             <div className="menu-line"></div>
                             <Link
                                 className={
@@ -86,10 +90,11 @@ function NavBar(props) {
                             >
                                 MY COLLABS
                             </Link>
+
                             <div className="menu-line"></div>
                             <Link
                                 className={
-                                    activeNavBar == "collabs"
+                                    activeNavBar == "sketch"
                                         ? "nav-link active"
                                         : "nav-link"
                                 }
@@ -98,10 +103,11 @@ function NavBar(props) {
                             >
                                 COLLAB SKETCHING SPACE
                             </Link>
+
                             <div className="menu-line"></div>
                             <Link
                                 className={
-                                    activeNavBar == "collabAI"
+                                    activeNavBar == "ai"
                                         ? "nav-link active"
                                         : "nav-link"
                                 }
