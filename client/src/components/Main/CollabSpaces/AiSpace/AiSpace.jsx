@@ -1,6 +1,12 @@
+// AI-SPACE COMPONENT
+//COMPONENT FOR AI-COLLAB SPACE ( TEXT TO IMAGE BY OPENAI API)
+
 import { useState, useEffect } from "react";
 import "./AiSpace.css";
 import { ThreeDots } from "react-loader-spinner";
+import { useDispatch } from "react-redux";
+
+import { activateNavBar } from "../../../../redux/features/navBar/navBarSlice";
 
 function AiSpace() {
     const [creatorPrompt, setCreatorPrompt] = useState("");
@@ -12,6 +18,16 @@ function AiSpace() {
     const addPromptTxt = (e) => {
         setCreatorPrompt(e.target.value);
     };
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(activateNavBar("ai"));
+        return function deactivateNavBar() {
+            dispatch(activateNavBar(""));
+        };
+    }, []);
+
     const sendCreatorPrompt = () => {
         //console.log(creatorPrompt);
         setLoadingState(true);
