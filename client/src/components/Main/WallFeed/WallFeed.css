@@ -59,10 +59,10 @@
     transition: all 0.1s ease-in-out;
     cursor: pointer;
 }
-
+/* 
 .card-img:hover {
     border: solid 2px white;
-}
+} */
 
 .card-img img {
     width: 100%;
