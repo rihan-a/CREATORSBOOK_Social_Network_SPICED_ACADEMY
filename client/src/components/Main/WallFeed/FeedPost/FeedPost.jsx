@@ -1,13 +1,16 @@
+// FEED-POST COMPONENT
+//Component to render the uploaded image, title, and user name.
+
 function FeedPost(props) {
     return (
         <>
             <div className="card-container">
                 <div className="card-img">
-                    <div className="heart">
+                    {/* <div className="heart">
                         <span className="material-symbols-outlined">
                             favorite
                         </span>
-                    </div>
+                    </div> */}
                     <img src={props.imgUrl} alt="" />
                 </div>
 
