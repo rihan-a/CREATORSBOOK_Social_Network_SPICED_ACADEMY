@@ -44,12 +44,6 @@ const cookieSessionMiddleware = cookieSession({
     samesite: true,
 });
 
-// INTIATE SOCKET IO 
-// const io = require("socket.io")(server, {
-//     allowRequest: (req, callback) =>
-//         callback(null, req.headers.referer.startsWith("https://creatorsbook.onrender.com" && "https://www.creatorsbook.de")),
-
-// });
 
 const io = require("socket.io")(server, {
     cors: {
@@ -58,7 +52,6 @@ const io = require("socket.io")(server, {
         credentials: true,
     }
 });
-
 
 
 io.use((socket, next) => {
@@ -537,6 +530,25 @@ app.get("/api/mycollabs", (req, res) => {
     });
 });
 
+
+// Visitor Api - Test
+var VisitorAPI = function (t, e, a) {
+    var s = new XMLHttpRequest;
+    s.onreadystatechange = function () { var t; s.readyState === XMLHttpRequest.DONE && (200 === (t = JSON.parse(s.responseText)).status ? e(t.data) : a(t.status, t.result)); }, s.open("GET", "https://api.visitorapi.com/api/?pid=" + t), s.send(null);
+};
+new VisitorAPI("dBi64Wz2bAQaSgolqJIY", successHandler, errorHandler);
+
+// print visitor browser data
+function successHandler(data) {
+    console.log(data);
+}
+// print error
+function errorHandler(errorCode, errorMessage) {
+    console.log(errorCode, errorMessage);
+}
+
+
+
 // SOCKET IO CHAT ---------------------------------------------------------->
 //-------------------------------------------------------------------------->
 const onlineCreators = {};
@@ -605,8 +617,6 @@ io.on("connection", async (socket) => {
 
             }
         }
-        //console.log(onlineCreators);
-        //console.log(userID, " disconnected");
     });
 
     // ----- CANVAS -  COLAB SKETCHING  ------------------------------------------->
@@ -614,16 +624,6 @@ io.on("connection", async (socket) => {
     socket.on("canvas-data", (data) => {
         socket.broadcast.emit('canvas-data', data);
     });
-
-    socket.on("canvas-data-to-db", (data) => {
-        // console.log("sketch to save", data);
-        //storeSketchData({ sketch: data, creator_1_id: userID, creator_2_id: 2 }).then().catch(err => console.log(err));
-    });
-
-    // socket.on('clear-board', () => {
-    //     socket.broadcast.emit('clear-board');
-    // });
-
 });
 
 
