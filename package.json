@@ -44,6 +44,7 @@
         "socket.io-client": "^4.5.3",
         "spiced-pg": "^1.0.4",
         "uid-safe": "^2.1.5",
+        "visitorapi": "^2.0.0",
         "xhr2": "^0.2.1"
     },
     "devDependencies": {
