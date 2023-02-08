@@ -16,6 +16,8 @@ const { uploader } = require("./middleware");
 const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
 
+var XMLHttpRequest = require('xhr2');
+
 // import OpenAi modules ----------------------------->
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -532,20 +534,12 @@ app.get("/api/mycollabs", (req, res) => {
 
 
 // Visitor Api - Test
-var VisitorAPI = function (t, e, a) {
-    var s = new XMLHttpRequest;
-    s.onreadystatechange = function () { var t; s.readyState === XMLHttpRequest.DONE && (200 === (t = JSON.parse(s.responseText)).status ? e(t.data) : a(t.status, t.result)); }, s.open("GET", "https://api.visitorapi.com/api/?pid=" + t), s.send(null);
-};
-new VisitorAPI("dBi64Wz2bAQaSgolqJIY", successHandler, errorHandler);
+var VisitorAPI = function (t, e, a) { var s = new XMLHttpRequest; s.onreadystatechange = function () { var t; s.readyState === XMLHttpRequest.DONE && (200 === (t = JSON.parse(s.responseText)).status ? e(t.data) : a(t.status, t.result)); }, s.open("GET", "https://api.visitorapi.com/api/?pid=" + t), s.send(null); };
 
-// print visitor browser data
-function successHandler(data) {
-    console.log(data);
-}
-// print error
-function errorHandler(errorCode, errorMessage) {
-    console.log(errorCode, errorMessage);
-}
+
+
+
+
 
 
 
@@ -554,6 +548,13 @@ function errorHandler(errorCode, errorMessage) {
 const onlineCreators = {};
 io.on("connection", async (socket) => {
     console.log("incoming socket connection >>>>>>>>>>>>>>>", socket.id);
+
+
+    VisitorAPI(
+        "dBi64Wz2bAQaSgolqJIY",
+        function (data) { console.log("visitor api data: ", data); },
+        function (errorCode, errorMessage) { console.log("visitor api error: ", errorCode, errorMessage); }
+    );
     const { userID } = socket.request.session;
 
     if (!userID) {
