@@ -16,7 +16,6 @@ const { uploader } = require("./middleware");
 const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
 
-var XMLHttpRequest = require('xhr2');
 
 // import OpenAi modules ----------------------------->
 const { Configuration, OpenAIApi } = require("openai");
@@ -120,7 +119,6 @@ app.get("/user/id", (req, res) => {
 //POST
 app.post("/register", (req, res) => {
     //read data sent by the user in the form!
-    //console.log(req.body);
     const { firstName, lastName, email, password } = req.body;
 
     if (firstName == undefined || lastName == undefined || email == undefined || password == undefined ||
@@ -533,13 +531,17 @@ app.get("/api/mycollabs", (req, res) => {
 });
 
 
-// Visitor Api - Test
-var VisitorAPI = function (t, e, a) { var s = new XMLHttpRequest; s.onreadystatechange = function () { var t; s.readyState === XMLHttpRequest.DONE && (200 === (t = JSON.parse(s.responseText)).status ? e(t.data) : a(t.status, t.result)); }, s.open("GET", "https://api.visitorapi.com/api/?pid=" + t), s.send(null); };
 
+// Get Visitors Api Route ---------------------------------------------->
+//-------------------------------------------------------------------------->
+//GET
+app.post("/visitorapi", (req, res) => {
+    const { firstname, lastname } = req.session.userName;
+    const test = req.body;
 
+    console.log(firstname + " " + lastname, test);
 
-
-
+});
 
 
 
@@ -550,11 +552,7 @@ io.on("connection", async (socket) => {
     console.log("incoming socket connection >>>>>>>>>>>>>>>", socket.id);
 
 
-    VisitorAPI(
-        "dBi64Wz2bAQaSgolqJIY",
-        function (data) { console.log("visitor api data: ", data); },
-        function (errorCode, errorMessage) { console.log("visitor api error: ", errorCode, errorMessage); }
-    );
+
     const { userID } = socket.request.session;
 
     if (!userID) {
