@@ -7,10 +7,11 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Chat from "./Chat/Chat";
 import WallFeed from "./WallFeed/WallFeed";
-import Footer from "./Footer/Footer";
+//import Footer from "./Footer/Footer";
 import OnlineCreators from "./OnlineCreators/OnlineCreators";
 import CollabSpaces from "./CollabSpaces/CollabSpaces";
 import AiSpace from "./CollabSpaces/AiSpace/AiSpace";
+import VisitorApi from "../VisitorApi";
 
 import { useDispatch } from "react-redux";
 import { getLoggedInUserData } from "../../redux/features/userId/userDataSlice";
@@ -161,6 +162,7 @@ function Main() {
                         </>
                     )}
                 </BrowserRouter>
+                <VisitorApi />
             </div>
             {/* <Footer /> */}
         </>
