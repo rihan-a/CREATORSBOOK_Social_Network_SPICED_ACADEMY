@@ -9,7 +9,6 @@ const onlineCreatorsSlice = createSlice({
     reducers: {
         online: (state, action) => {
             state.creatorsDataList = action.payload;
-            console.log(state.creatorsDataList);
         },
         offline: (state, action) => {
             // remove disconnected creator from the DataList
