@@ -8,7 +8,6 @@ function Welcome() {
     return (
         <div className="welcome-page">
             <div className="welcome-box">
-                {/* <img src="/images/logo_black.svg" alt="" /> */}
                 <svg
                     className="logo-svg"
                     data-name="Layer 1"
