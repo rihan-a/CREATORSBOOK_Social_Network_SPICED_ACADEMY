@@ -530,28 +530,21 @@ app.get("/api/mycollabs", (req, res) => {
     });
 });
 
-
-
 // Get Visitors Api Route ---------------------------------------------->
 //-------------------------------------------------------------------------->
 //GET
 app.post("/visitorapi", (req, res) => {
     const { firstname, lastname } = req.session.userName;
-    const test = req.body;
-
-    console.log(firstname + " " + lastname, test);
-
+    const visitorData = req.body;
+    // log visitor data
+    console.log(firstname + " " + lastname, visitorData);
 });
-
-
 
 // SOCKET IO CHAT ---------------------------------------------------------->
 //-------------------------------------------------------------------------->
 const onlineCreators = {};
 io.on("connection", async (socket) => {
     console.log("incoming socket connection >>>>>>>>>>>>>>>", socket.id);
-
-
 
     const { userID } = socket.request.session;
 
