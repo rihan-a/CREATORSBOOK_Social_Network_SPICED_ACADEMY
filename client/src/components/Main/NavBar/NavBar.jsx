@@ -59,7 +59,7 @@ function NavBar(props) {
                                         ? "nav-link active"
                                         : "nav-link"
                                 }
-                                to="/"
+                                to="/wall"
                                 onClick={hamburgerMenuHandler}
                             >
                                 CREATORS FEED
@@ -72,7 +72,7 @@ function NavBar(props) {
                                         ? "nav-link active"
                                         : "nav-link"
                                 }
-                                to="/creators"
+                                to="/"
                                 onClick={hamburgerMenuHandler}
                             >
                                 FIND CREATORS
