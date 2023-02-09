@@ -103,15 +103,16 @@ function Main() {
                             path="/mycollabs"
                             element={<MyCollabs />}
                         ></Route>
-                        <Route
-                            path="/creators"
-                            element={<FindCreators />}
-                        ></Route>
+                        <Route path="/" element={<FindCreators />}></Route>
                         <Route
                             path="/creators/:id"
                             element={<OtherCreatorProfile />}
                         ></Route>
-                        <Route exact path="/" element={<WallFeed />}></Route>
+                        <Route
+                            exact
+                            path="/wall"
+                            element={<WallFeed />}
+                        ></Route>
                         <Route path="/chat" element={<Chat />}></Route>
 
                         <Route
