@@ -59,7 +59,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url("/images/8.jpg");
+    background-image: url("https://rihanbucket.s3.amazonaws.com/creatorsbook/8.jpg");
     filter: saturate(70%);
     background-repeat: no-repeat;
     background-size: cover;
