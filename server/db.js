@@ -90,7 +90,7 @@ function saveProfileBio({ id, bio }) {
 
 function getCreators() {
     return db
-        .query("SELECT first_name, last_name, img_url, bio, id FROM users ORDER BY created_at DESC LIMIT 12")
+        .query("SELECT first_name, last_name, img_url, bio, id FROM users ORDER BY created_at DESC LIMIT 24")
         .then((result) => result.rows);
 }
 
