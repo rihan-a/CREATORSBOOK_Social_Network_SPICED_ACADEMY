@@ -8,6 +8,7 @@
     font-weight: 300;
     text-align: left;
     padding-left: 7px;
+    color: #eee !important;
 }
 
 .signup-signin-form {
@@ -25,20 +26,21 @@
     width: 24%;
     height: 35px;
     margin: 5px;
-    background: var(--textColor);
-    color: var(--backgroundColor);
+    background: #eee;
+    color: black;
     border-radius: 30px;
     padding-left: 15px;
 }
 
 .signup-signin-form input::placeholder {
-    color: var(--backgroundColor) !important;
+    color: black !important;
 }
 
 .signup-signin-form input:nth-child(5) {
     margin-top: 20px;
-    background-color: grey;
-    color: var(--textColor);
+    background-color: rgb(251, 255, 0);
+    color: black;
+    font-weight: 600;
     cursor: pointer;
     padding-left: unset;
     transition: all 0.2s ease-in;
@@ -52,24 +54,24 @@
 .signup-signin-form span {
     margin: 5px;
     margin-top: 25px;
+    color: #eee;
 }
 .signup-signin-form span a {
     margin: 10px;
-    color: var(--textColor);
+    color: #eee;
 }
 
 .login input:nth-child(3) {
-    /* margin-top: 20px; */
-    background-color: grey;
-    color: var(--textColor);
+    background-color: rgb(251, 255, 0);
+    color: black;
     cursor: pointer;
     padding-left: unset;
     transition: all 0.2s ease-in;
 }
 
 .login input:nth-child(3):hover {
-    background-color: var(--textColor);
-    color: var(--backgroundColor);
+    background-color: black;
+    color: #eee;
 }
 
 @media (max-width: 768px) {
