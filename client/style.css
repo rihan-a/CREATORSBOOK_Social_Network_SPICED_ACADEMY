@@ -23,7 +23,7 @@ body {
 /* dark theme colors */
 @media (prefers-color-scheme: dark) {
     :root {
-        --backgroundColor: rgb(18, 18, 18);
+        --backgroundColor: rgb(16, 16, 16);
         --chatBg: rgb(31, 31, 31);
         --textColor: #eee;
         --cardBackground: rgb(64, 64, 64);
@@ -68,17 +68,19 @@ body {
 .welcome-box .logo-svg {
     width: 80%;
     margin-bottom: 20px;
-    fill: var(--textColor);
+    fill: #eee;
 }
 
 .welcome-box h3 {
     font-size: 1.5rem;
     font-weight: 300;
     margin: 10px 0 40px;
+    color: #eee !important;
 }
 
 @media (max-width: 768px) {
     .welcome-box h3 {
+        margin: 10px 0 5px;
         width: 90%;
         text-align: start;
         font-size: 1.1rem;
