@@ -1,52 +1,35 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import "./CollabButton.css";
-import {
-    deleteCollab,
-    acceptCollab,
-} from "../../../../redux/features/collabs/collabsSlice";
 
 function CollabButton({ id }) {
     const [collabState, setCollabState] = useState("check");
     const [btnState, setBtnState] = useState("");
 
-    const dispatch = useDispatch();
-
-    //dispatch(getCollabs(result.myCollabsData));
-
     const handleRejectCollab = () => {
         console.log("decline collab");
         setCollabState("cancel");
-        //dispatch(deleteCollab(id));
     };
 
     const handleCancelCollabReq = () => {
         console.log("cancel collab req");
         setCollabState("cancel");
-        //dispatch(deleteCollab(creatorId));
     };
 
     const handleAcceptCollab = () => {
         console.log("accept state");
         setCollabState("accept");
-        //dispatch(acceptCollab(id));
     };
 
     const handleEndCollab = () => {
         setCollabState("end");
-        // dispatch(deleteCollab(creatorId));
     };
 
     useEffect(() => {
-        console.log("state change", collabState);
         fetch(`/collab/${collabState}/${id}`)
             .then((result) => result.json())
             .then((result) => {
-                //console.log(result.accepted);
-                //console.log(result);
                 if (result.collaborating == true) {
                     if (result.accepted == true) {
-                        //  console.log("collab accepted");
                         setBtnState("endBtn");
                     } else {
                         if (result.collaborationType == "sentRequest") {
@@ -123,7 +106,6 @@ function CollabButton({ id }) {
                         );
 
                     default:
-                    //console.log("default stage");
                 }
             })()}
         </>
