@@ -23,9 +23,6 @@ class Registration extends Component {
     }
 
     handleSubmit() {
-        console.log("About to submit the form!");
-        console.log(this.state);
-
         fetch("/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -33,7 +30,6 @@ class Registration extends Component {
         })
             .then((res) => res.json())
             .then((response) => {
-                console.log({ response });
                 if (response.success == true) {
                     location.reload();
                 } else {
