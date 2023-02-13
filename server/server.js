@@ -17,10 +17,6 @@ const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
 
 
-//const router = require("express").Router();
-
-
-
 
 // import OpenAi modules ----------------------------->
 const { Configuration, OpenAIApi } = require("openai");
@@ -123,54 +119,11 @@ app.get("/user/id", (req, res) => {
 const registration = require("./routes/registration");
 app.use(registration);
 
+// import login route
+const login = require("./routes/login");
+app.use(login);
 
 
-// Log-In Route ------------------------------------------------------------>
-//-------------------------------------------------------------------------->
-//POST
-app.post("/login", (req, res) => {
-    //read data sent by the user in the form!
-    const { email, password } = req.body;
-
-    if (email == undefined || password == undefined || email.trim() !== "" || password.trim() !== "") {
-        getCreatorByEmail(email).then((user) => {
-            //console.log(user);
-            if (user) {
-                let id = user.id;
-                if (bcrypt.compareSync(password, user.password)) {
-                    console.log("valid user.....");
-
-                    let firstname = user.first_name;
-                    let lastname = user.last_name;
-                    let email = user.email;
-                    console.log(firstname + " " + lastname);
-                    //console.log(id);
-                    req.session.userID = id;
-                    //console.log(req.session.userID);
-                    req.session.userName = { firstname, lastname, email };
-                    req.session.logedIn = true;
-                    return res.json({ success: true });
-
-                } else {
-                    res.json({
-                        error: "invalid password!",
-                        success: false
-                    });
-                }
-            } else {
-                res.json({
-                    error: "invalid email!",
-                    success: false
-                });
-            }
-        });
-    } else {
-        res.json({
-            error: "invalid email or password!",
-            success: false
-        });
-    }
-});
 
 
 // Reset password Route ------------------------------------------------------------>
