@@ -10,8 +10,7 @@ const bcrypt = require("bcryptjs");
 const aws = require("aws-sdk");
 const fs = require("fs");
 const salt = bcrypt.genSaltSync(10);
-const { sendCodeEmail } = require("./ses");
-const cryptoRandomString = require('crypto-random-string');
+
 const { uploader } = require("./middleware");
 const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
@@ -123,114 +122,13 @@ app.use(registration);
 const login = require("./routes/login");
 app.use(login);
 
+// import login route
+const passwordReset = require("./routes/passwordReset");
+app.use(passwordReset);
 
-
-
-// Reset password Route ------------------------------------------------------------>
-//-------------------------------------------------------------------------->
-//POST
-app.post("/password/reset/start", (req, res) => {
-
-    const { email } = req.body;
-
-    if (email.trim() !== "") {
-        getCreatorByEmail(email).then((result) => {
-            if (result) {
-                //console.log(result);
-                // generate reset code
-                const secretCode = cryptoRandomString({
-                    length: 6
-                });
-
-                console.log(secretCode);
-                let username = result.first_name + " " + result.last_name;
-
-                sendCodeEmail(username, secretCode);
-                addResetCode({ email: email, reset_code: secretCode }).then(() => {
-                    //console.log(result);
-                    return res.json({ success: true });
-                });
-            } else {
-                return res.json({
-                    error: "email doesn't exist",
-                    success: false
-                });
-            }
-        });
-    } else {
-        return res.json({
-            error: "invalid email!",
-            success: false
-        });
-    }
-
-});
-
-app.post("/password/reset/verify", (req, res) => {
-
-    const { reset_code, password, email } = req.body;
-
-    //console.log(req.body);
-    verifyResetCode({ email, reset_code }).then((result) => {
-        //console.log("verify", result);
-        if (result.rowCount > 0) {
-            // Add Hashed password to database users table
-            const hashedPassword = bcrypt.hashSync(password, salt);
-            updatePasswordByEmail({ password: hashedPassword, email: email }).then(() => { }).catch((err) => {
-                console.log(err);
-                return res.json({
-                    error: "Something went wrong!",
-                    success: false
-                });
-            });
-            return res.json({ success: true });
-        } else {
-            return res.json({
-                error: "Wrong or expired reset code",
-                success: false
-            });
-        }
-
-    });
-
-});
-
-
-// Upload profile picture Route -------------------------------------------->
-//-------------------------------------------------------------------------->
-//POST
-app.post("/profileImgUpload", uploader.single("file"), (req, res) => {
-    //console.log(req.file);
-    const { filename, mimetype, size, path } = req.file;
-    const promise = s3 // this to send to aws, different for other cloud storage
-        .putObject({
-            Bucket: "spicedling",
-            ACL: "public-read",
-            Key: filename,
-            Body: fs.createReadStream(path),
-            ContentType: mimetype,
-            ContentLength: size,
-        })
-        .promise();
-    promise
-        .then(() => {
-            let id = req.session.userID;
-            let img_url = `https://s3.amazonaws.com/spicedling/${req.file.filename}`;
-            //call a function to save picture to db 
-            saveProfileImg({ id, img_url }).then(() => {
-                //console.log(result);
-                return res.json({
-                    img_url: img_url,
-                    success: true
-                });
-            });
-            // Delete image from local storage
-            unlinkFile(req.file.path);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-});
+// import login route
+const profilePicUpload = require("./routes/profilePicUpload");
+app.use(profilePicUpload);
 
 
 
