@@ -23,13 +23,11 @@ function FindCreators() {
 
     const searchBarCallBack = (childData) => {
         setSearchQuery(childData);
-        console.log(searchQuery);
     };
 
     const otherCreatorModalToggle = (id) => {
         setOtherCreatorModal(!otherCreatorToggle);
         setOtherCreatorId(id);
-        console.log("user clicked");
     };
 
     const closeModalCallBack = () => {
