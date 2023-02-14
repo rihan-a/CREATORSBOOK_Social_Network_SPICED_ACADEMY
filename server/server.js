@@ -76,15 +76,8 @@ app.use(express.static(path.join(__dirname, "uploads")));
 
 // import funciton from db script to interact with the database tables --------->
 const {
-    createUser,
     getCreatorById,
     getCreatorsByIds,
-    getCreatorByEmail,
-    addResetCode,
-    verifyResetCode,
-    updatePasswordByEmail,
-    saveProfileImg,
-    saveProfileBio,
     getCreators,
     getCreatorsByName,
     collaborations,
@@ -122,68 +115,19 @@ app.use(registration);
 const login = require("./routes/login");
 app.use(login);
 
-// import login route
+// import password reset route
 const passwordReset = require("./routes/passwordReset");
 app.use(passwordReset);
 
-// import login route
+// import profile picture upload route
 const profilePicUpload = require("./routes/profilePicUpload");
 app.use(profilePicUpload);
 
+// import logged In Creator route
+const loggedInCreator = require("./routes/loggedInCreator");
+app.use(loggedInCreator);
 
 
-// Get all Creators data Route ---------------------------------------------->
-//-------------------------------------------------------------------------->
-//GET
-app.get("/creators-data", (req, res) => {
-    let id = req.session.userID;
-    getCreatorById(id).then((userData) => {
-        //console.log(userData);
-        if (userData) {
-            return res.json({
-                success: true,
-                userData: userData,
-                id: id,
-            });
-
-        } else {
-            return res.json({
-                error: "Something went wrong..",
-                success: false
-
-            });
-        }
-    });
-});
-
-
-// Save Bio data to db Route ---------------------------------------------->
-//-------------------------------------------------------------------------->
-//POST
-app.post("/bio/save", (req, res) => {
-    const { bioText } = req.body;
-
-    let id = req.session.userID;
-    //console.log(id + " " + bioText);
-
-    saveProfileBio({ id, bio: bioText }).then((result) => {
-        //console.log(result.rows[0].bio);
-        let bio = result.rows[0].bio;
-        return res.json({
-            success: true,
-            bio: bio
-        });
-
-    }).catch((err) => {
-        console.log(err);
-        return res.json({
-            error: "Something went wrong..",
-            success: false
-
-        });
-    });
-
-});
 
 
 // Get lastest 6 creators  Route ------------------------------------------->
@@ -430,7 +374,7 @@ io.on("connection", async (socket) => {
 // Upload Post Img to AWS and save url and img data to db Route ------------>
 //-------------------------------------------------------------------------->
 //POST
-app.post("/postImgUpload", uploader.single("file"), (req, res) => {
+app.post("/api/postImgUpload", uploader.single("file"), (req, res) => {
     //console.log(req.file);
     const { postTitle, postDesc } = req.body;
     const { filename, mimetype, size, path } = req.file;
