@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function BioEditor(props) {
+function BioEditor() {
     const [bioState, setBioState] = useState("add");
 
     const [bioText, setBioText] = useState("");
