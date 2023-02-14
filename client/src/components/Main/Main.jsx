@@ -71,7 +71,7 @@ function Main() {
     };
 
     useEffect(() => {
-        fetch("/creators-data")
+        fetch("/api/creator-data")
             .then((result) => result.json())
             .then((result) => {
                 //console.log(result);
