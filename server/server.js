@@ -78,7 +78,7 @@ app.use(express.static(path.join(__dirname, "uploads")));
 const {
     getCreatorById,
     getCreatorsByIds,
-    getCreators,
+
     getCreatorsByName,
     collaborations,
     getPossibleCollabs,
@@ -127,159 +127,16 @@ app.use(profilePicUpload);
 const loggedInCreator = require("./routes/loggedInCreator");
 app.use(loggedInCreator);
 
+// import get Creators route
+const getCreators = require("./routes/getCreators");
+app.use(getCreators);
+
+// import collabs route
+const collabs = require("./routes/collabs");
+app.use(collabs);
 
 
 
-// Get lastest 6 creators  Route ------------------------------------------->
-//-------------------------------------------------------------------------->
-//GET
-app.get("/api/creators", (req, res) => {
-
-    getCreators().then((creatorsData) => {
-        //console.log(userData);
-        if (creatorsData) {
-            let id = req.session.userID;
-            const filteredCreatorsData = creatorsData.filter(creator => creator.id != id);
-            return res.json({
-                success: true,
-                creatorsData: filteredCreatorsData
-            });
-
-        } else {
-            return res.json({
-                error: "Something went wrong..",
-                success: false
-
-            });
-        }
-    });
-});
-
-// Get creators by name Route ---------------------------------------------->
-//-------------------------------------------------------------------------->
-//GET
-app.get("/api/creators/:searchQuery", (req, res) => {
-    let searchQuery = req.params.searchQuery;
-    //console.log(searchQuery);
-    getCreatorsByName(searchQuery).then((creatorsData) => {
-        //console.log(creatorsData);
-        let id = req.session.userID;
-        const filteredCreatorsData = creatorsData.filter(creator => creator.id != id);
-
-        if (creatorsData) {
-            return res.json({
-                success: true,
-                creatorsData: filteredCreatorsData
-            });
-
-        } else {
-            return res.json({
-                error: "Something went wrong..",
-                success: false
-
-            });
-        }
-    });
-});
-
-
-// Get creators by ID Route ---------------------------------------------->
-//-------------------------------------------------------------------------->
-//GET
-app.get("/api/creator-profile/:id", (req, res) => {
-
-    let id = req.params.id;
-    let userId = req.session.userID;
-
-    getCreatorById(id).then((creatorData) => {
-        //console.log(creatorData);
-        if (creatorData) {
-            if (id == userId) {
-                //console.log("same user");
-                return res.json({
-                    success: true,
-                    sameUser: true
-                });
-            } else {
-                return res.json({
-                    success: true,
-                    creatorData: creatorData,
-                });
-            }
-
-        } else {
-            return res.json({
-                error: "Something went wrong..",
-                success: false
-
-            });
-        }
-    });
-});
-
-
-// Collab Route ------------------------------------------------------------>
-//-------------------------------------------------------------------------->
-//GET
-app.get("/collab/:collabstate/:recipientId", (req, res) => {
-    let collabState = req.params.collabstate;
-    let recipientId = req.params.recipientId;
-    let userId = req.session.userID;
-
-    //console.log(collabState);
-    //console.log(userId);
-    //console.log(recipientId);
-
-
-    collaborations(userId, recipientId, collabState).then((result) => {
-        //console.log("collab status", result);
-
-        if (result[0]) {
-            console.log(result[0].sender_id);
-            //console.log("there could be a collab");
-
-            if (result[0].sender_id == userId) {
-                return res.json({
-                    collaborating: true,
-                    accepted: result[0].accepted,
-                    collaborationType: "sentRequest",
-                });
-            } else {
-                return res.json({
-                    collaborating: true,
-                    accepted: result[0].accepted,
-                    collaborationType: "recievedRequest",
-                });
-            }
-
-        } else {
-            //console.log("no collab");
-            return res.json({
-                collaborating: false,
-            });
-        }
-    }).catch((err) => {
-        console.log("there is an error :/", err);
-    });
-});
-
-
-
-
-// Get My collabs data Route ---------------------------------------------->
-//-------------------------------------------------------------------------->
-//GET
-app.get("/api/mycollabs", (req, res) => {
-    let id = req.session.userID;
-    getPossibleCollabs(id).then((results) => {
-        //console.log(results);
-        return res.json({
-            success: true,
-            myCollabsData: results,
-            myId: id
-        });
-    });
-});
 
 // Get Visitors Api Route ---------------------------------------------->
 //-------------------------------------------------------------------------->
