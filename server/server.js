@@ -14,24 +14,10 @@ const { PORT = 3001,
 } = process.env;
 
 const server = require("http").Server(app);
-
 const cookieSessionMiddleware = cookieSession({
     secret: SESSION_SECRET,
     maxAge: 1000 * 60 * 60 * 24 * 14,
     samesite: true,
-});
-
-
-const io = require("socket.io")(server, {
-    cors: {
-        origin: ["https://creatorsbook.de"],
-        credentials: true,
-    }
-});
-
-
-io.use((socket, next) => {
-    cookieSessionMiddleware(socket.request, socket.request.res, next);
 });
 
 
@@ -55,7 +41,6 @@ const {
     insertMessage,
     getMessages,
     getLastMessageById,
-    getAiCount
 } = require("./db");
 
 
@@ -111,44 +96,38 @@ app.use(collabSpaceAI);
 
 
 
-// Get Visitors Api Route ---------------------------------------------->
-//-------------------------------------------------------------------------->
-//GET
-app.post("/visitorapi", (req) => {
-    const { firstname, lastname } = req.session.userName;
-    const visitorData = req.body;
-    // log visitor data
-    console.log(firstname + " " + lastname, visitorData);
-});
-
 // SOCKET IO CHAT ---------------------------------------------------------->
 //-------------------------------------------------------------------------->
+const io = require("socket.io")(server, {
+    cors: {
+        origin: ["https://creatorsbook.de"],
+        credentials: true,
+    }
+});
+
+io.use((socket, next) => {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 const onlineCreators = {};
 io.on("connection", async (socket) => {
-    console.log("incoming socket connection >>>>>>>>>>>>>>>", socket.id);
-
+    const { firstname, lastname } = socket.request.session.userName;
     const { userID } = socket.request.session;
-
+    console.log("incoming socket connection from >> " + " [" + firstname + " " + lastname + "]");
     if (!userID) {
         return socket.disconnect(true);
     }
 
-
     //get the latest 10 messages
     getMessages().then((results) => {
-        //console.log(results);
         socket.emit("chatMessages", results);
     });
 
     // listen for when the connected user sends a message
     socket.on("chatMessage", (message) => {
-        //console.log(message);
         if (message.trim() !== "") {
             insertMessage({ sender_id: userID, message }).then((newMsg) => {
-                //console.log("new message", newMsg[0]);
                 // get last msg full data - creators name - img-url 
                 getLastMessageById({ id: newMsg[0].id }).then((newMsgFullData) => {
-                    //console.log("new message with fulldata", newMsgFullData);
                     io.emit("chatMessage", newMsgFullData[0]);
                 });
             }).catch((err) => {
@@ -161,21 +140,15 @@ io.on("connection", async (socket) => {
 
     // -------------- ONLINE --------------
     //-------------------------------------
-    //console.log(userID, "connected");
-
     // store connected creators userId and socket Id
     onlineCreators[userID] = socket.id;
-
-    //console.log(onlineCreators);
 
     // extract user Ids keys and convert them to numbers
     let ids = Object.keys(onlineCreators).map(Number);
 
-    //console.log("ids", ids);
 
     // get multiple Creators by Ids from db
     getCreatorsByIds(ids).then((results) => {
-        //console.log("users", results);
         io.emit("onlineCreatorsList", results);
     });
 
@@ -183,7 +156,6 @@ io.on("connection", async (socket) => {
     socket.on("disconnect", () => {
         // remove diconnected user from the onlineCreators list
         for (const [key, value] of Object.entries(onlineCreators)) {
-            //console.log(`${key}: ${value}`);
             if (socket.id == value) {
                 delete onlineCreators[key];
                 io.emit("offlineCreator", key);
@@ -193,30 +165,20 @@ io.on("connection", async (socket) => {
     });
 
     // ----- CANVAS -  COLAB SKETCHING  ------------------------------------------->
-
     socket.on("canvas-data", (data) => {
         socket.broadcast.emit('canvas-data', data);
     });
 });
 
-
-
-
-
-
-
-// Get AI prompts count ---------------------------------------------------->
+// Get Visitors Api Route ---------------------------------------------->
 //-------------------------------------------------------------------------->
 //GET
-app.get("/api/ai/count", (req, res) => {
-    let creator_id = req.session.userID;
-    getAiCount(creator_id).then((count) => {
-        return res.json({
-            count: count
-        });
-    }).catch((err) => console.log(err));
+app.post("/visitorapi", (req) => {
+    const { firstname, lastname } = req.session.userName;
+    const visitorData = req.body;
+    // log visitor data
+    console.log(firstname + " " + lastname, visitorData);
 });
-
 
 // Logout Route ------------------------------------------------------------>
 //-------------------------------------------------------------------------->
