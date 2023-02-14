@@ -7,36 +7,13 @@ require("dotenv").config();
 const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 
-const aws = require("aws-sdk");
-const fs = require("fs");
-
-const { uploader } = require("./middleware");
-const util = require("util");
-const unlinkFile = util.promisify(fs.unlink);
-
-
-
-// import OpenAi modules ----------------------------->
-const { Configuration, OpenAIApi } = require("openai");
-
 
 // import secrete data from dotenv
 const { PORT = 3001,
     SESSION_SECRET,
-    AWS_KEY,
-    AWS_SECRET,
-    OPENAI_API_KEY
 } = process.env;
 
-
-// AWS S3
-const s3 = new aws.S3({
-    accessKeyId: AWS_KEY,
-    secretAccessKey: AWS_SECRET,
-});
-
 const server = require("http").Server(app);
-
 
 const cookieSessionMiddleware = cookieSession({
     secret: SESSION_SECRET,
@@ -47,8 +24,7 @@ const cookieSessionMiddleware = cookieSession({
 
 const io = require("socket.io")(server, {
     cors: {
-        origin: ["https://www.creatorsbook.de"],
-        allowedHeaders: ["my-custom-header"],
+        origin: ["https://creatorsbook.de"],
         credentials: true,
     }
 });
@@ -79,10 +55,6 @@ const {
     insertMessage,
     getMessages,
     getLastMessageById,
-    savePostData,
-    getPostsData,
-    getLastPostById,
-    insertPrompt,
     getAiCount
 } = require("./db");
 
@@ -129,9 +101,13 @@ app.use(getCreators);
 const collabs = require("./routes/collabs");
 app.use(collabs);
 
-// import collabs route
+// import posts route
 const posts = require("./routes/posts");
 app.use(posts);
+
+// import collab Space AI route
+const collabSpaceAI = require("./routes/collabSpaceAI");
+app.use(collabSpaceAI);
 
 
 
@@ -229,49 +205,6 @@ io.on("connection", async (socket) => {
 
 
 
-// AI COLLAB-SPACE end-Point using OpenAi for text to Img prompts--------------------------------------->
-//------------------------------------------------------------------------------------------------------>
-//GET
-const configuration = new Configuration({
-    apiKey: `${OPENAI_API_KEY}`,
-});
-const openai = new OpenAIApi(configuration);
-
-
-
-app.post("/api/collabspace/ai", (req, res) => {
-    let creator_id = req.session.userID;
-    const { creatorPrompt } = req.body;
-    let count = 0;
-    // get prompt count
-    getAiCount(creator_id).then((result) => {
-        if (result) {
-            console.log(result);
-            count = result.count + 1;
-        } else {
-            count = 1;
-        }
-        // insert prompt data into db
-        insertPrompt({ count, creator_id, prompt: creatorPrompt }).then((result) => {
-            if (result.count < 11) {
-                openai.createImage({
-                    prompt: creatorPrompt,
-                    n: 1,
-                    size: "1024x1024",
-                }).then((data => {
-                    console.log(data.data.data[0].url);
-                    return res.json({ url: data.data.data[0].url, count: result.count });
-                })).catch(err => { console.log("error is ...", err); });
-            } else {
-                return res.json({ url: "", count: result.count, error: "you have passed your limit of 10 prompts" });
-            }
-
-        }).catch((err) => console.log(err));
-
-    }).catch((err) => console.log(err));
-
-
-});
 // Get AI prompts count ---------------------------------------------------->
 //-------------------------------------------------------------------------->
 //GET
