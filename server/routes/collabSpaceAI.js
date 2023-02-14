@@ -53,6 +53,17 @@ router.post("/api/collabspace/ai", (req, res) => {
     }).catch((err) => console.log(err));
 });
 
+// Get AI prompts count ---------------------------------------------------->
+//-------------------------------------------------------------------------->
+//GET
+router.get("/api/ai/count", (req, res) => {
+    let creator_id = req.session.userID;
+    getAiCount(creator_id).then((count) => {
+        return res.json({
+            count: count
+        });
+    }).catch((err) => console.log(err));
+});
 
 
 module.exports = router;
