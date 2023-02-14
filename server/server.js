@@ -6,10 +6,9 @@ const path = require("path");
 require("dotenv").config();
 const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
-const bcrypt = require("bcryptjs");
+
 const aws = require("aws-sdk");
 const fs = require("fs");
-const salt = bcrypt.genSaltSync(10);
 
 const { uploader } = require("./middleware");
 const util = require("util");
@@ -76,12 +75,7 @@ app.use(express.static(path.join(__dirname, "uploads")));
 
 // import funciton from db script to interact with the database tables --------->
 const {
-    getCreatorById,
     getCreatorsByIds,
-
-    getCreatorsByName,
-    collaborations,
-    getPossibleCollabs,
     insertMessage,
     getMessages,
     getLastMessageById,
@@ -135,6 +129,9 @@ app.use(getCreators);
 const collabs = require("./routes/collabs");
 app.use(collabs);
 
+// import collabs route
+const posts = require("./routes/posts");
+app.use(posts);
 
 
 
@@ -228,68 +225,9 @@ io.on("connection", async (socket) => {
 
 
 
-// Upload Post Img to AWS and save url and img data to db Route ------------>
-//-------------------------------------------------------------------------->
-//POST
-app.post("/api/postImgUpload", uploader.single("file"), (req, res) => {
-    //console.log(req.file);
-    const { postTitle, postDesc } = req.body;
-    const { filename, mimetype, size, path } = req.file;
 
-    const promise = s3 // this to send to aws
-        .putObject({
-            Bucket: "spicedling",
-            ACL: "public-read",
-            Key: filename,
-            Body: fs.createReadStream(path),
-            ContentType: mimetype,
-            ContentLength: size,
-        })
-        .promise();
 
-    promise
-        .then(() => {
-            let creator_id = req.session.userID;
-            let img_url = `https://s3.amazonaws.com/spicedling/${req.file.filename}`;
 
-            //call a function to save picture to db 
-            savePostData({ url: img_url, creator_id, title: postTitle, desc: postDesc }).then((postData) => {
-                //console.log(result);
-                let id = postData.id;
-                getLastPostById(id).then((postFullData) => {
-                    //console.log(postFullData[0]);
-                    return res.json({
-                        success: true,
-                        postData: postFullData[0]
-                    });
-                }).catch((err) => console.log(err));
-            });
-            // Delete image from local storage
-            unlinkFile(req.file.path);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-});
-
-// Get posts Data Route ---------------------------------------------------->
-//-------------------------------------------------------------------------->
-//GET
-app.get("/api/posts", (req, res) => {
-    getPostsData().then((postsData) => {
-        if (postsData) {
-            return res.json({
-                success: true,
-                postsData: postsData
-            });
-        } else {
-            return res.json({
-                success: false,
-                error: "no posts yet"
-            });
-        }
-    });
-});
 
 // AI COLLAB-SPACE end-Point using OpenAi for text to Img prompts--------------------------------------->
 //------------------------------------------------------------------------------------------------------>
