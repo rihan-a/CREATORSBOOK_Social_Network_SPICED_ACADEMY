@@ -38,7 +38,7 @@ function PostUploader(props) {
             return;
         }
 
-        fetch("/postImgUpload", {
+        fetch("/api/postImgUpload", {
             method: "POST",
             body: formData,
         })
