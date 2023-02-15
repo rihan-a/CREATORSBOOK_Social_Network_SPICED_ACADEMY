@@ -1,6 +1,7 @@
 import Registration from "./Registration-Login/Registration";
 import Login from "./Registration-Login/Login";
 import ResetPassword from "./ResetPassword/ResetPassword";
+import DemoLogin from "./DemoLogin/DemoLogin";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -78,6 +79,18 @@ function Welcome() {
                         />
                     </Routes>
                 </BrowserRouter>
+                <div className="demo-users-container">
+                    <DemoLogin
+                        email="john.doe@email.com"
+                        password="demo"
+                        firstName="John"
+                    />
+                    <DemoLogin
+                        email="jane.doe@email.com"
+                        password="demo"
+                        firstName="Jane"
+                    />
+                </div>
             </div>
         </div>
     );
