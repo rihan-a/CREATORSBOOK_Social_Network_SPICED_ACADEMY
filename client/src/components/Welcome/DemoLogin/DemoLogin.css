@@ -1,0 +1,43 @@
+.demo-users-container {
+    display: flex;
+    width: 260px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.demo-login-card {
+    width: 120px;
+    /* aspect-ratio: 1/1; */
+    /* background-color: rgba(255, 255, 255); */
+    background-color: rgba(255, 255, 255, 0.564);
+    border-radius: 10px;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.demo-login-card:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.demo-img-container {
+    margin: 10px auto;
+    width: 90%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.demo-login-card img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.demo-login-card .demo-name {
+    display: block;
+    color: black;
+    margin: 7px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    position: relative;
+    font-size: 0.95rem;
+}
