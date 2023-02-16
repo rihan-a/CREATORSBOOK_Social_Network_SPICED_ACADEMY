@@ -21,6 +21,7 @@ body {
     font-family: "Poppins", sans-serif;
 }
 /* dark theme colors */
+
 @media (prefers-color-scheme: dark) {
     :root {
         --backgroundColor: rgb(16, 16, 16);
@@ -37,7 +38,7 @@ body {
 }
 
 .error {
-    color: red;
+    color: red !important;
 }
 
 /* ----------- WELCOME PAGE ----------- */
