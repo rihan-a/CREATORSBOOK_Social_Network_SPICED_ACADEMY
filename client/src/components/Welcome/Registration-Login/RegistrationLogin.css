@@ -4,7 +4,7 @@
 
 .signup-signin-components h2 {
     font-size: 1rem;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-weight: 300;
     text-align: left;
     padding-left: 7px;
@@ -16,7 +16,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
-    height: 150px;
+    height: 100px;
 }
 
 .signup-signin-form input {
