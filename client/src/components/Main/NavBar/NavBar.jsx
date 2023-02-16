@@ -8,6 +8,7 @@ import Logout from "./Logout";
 import { useSelector } from "react-redux";
 import "./NavBar.css";
 import { Link } from "react-router-dom";
+import DarkModeSwitch from "../../DarkModeSwitch/DarkModeSwitch";
 
 function NavBar(props) {
     // Get activeNavBar state from Redux store
@@ -47,6 +48,8 @@ function NavBar(props) {
                         </svg>
                     )}
                 </div>
+
+                <div className="empty-space-navbar"></div>
 
                 <Logo />
 
@@ -154,6 +157,8 @@ function NavBar(props) {
                         ></div>
                     </>
                 )}
+
+                <DarkModeSwitch />
 
                 <ProfilePicture
                     openModalHandler={props.openModalHandler}
