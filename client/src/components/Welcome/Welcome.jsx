@@ -82,8 +82,8 @@ function Welcome() {
 
                 <div className="demo-users-container">
                     <h4>
-                        Have no account yet?, click on one of the demo users
-                        below;
+                        No time to create an account? Click on one of the demo
+                        users below :
                     </h4>
                     <div className="demo-users">
                         <DemoLogin
