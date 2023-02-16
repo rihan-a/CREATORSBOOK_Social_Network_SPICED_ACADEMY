@@ -79,17 +79,24 @@ function Welcome() {
                         />
                     </Routes>
                 </BrowserRouter>
+
                 <div className="demo-users-container">
-                    <DemoLogin
-                        email="john.doe@email.com"
-                        password="demo"
-                        firstName="John"
-                    />
-                    <DemoLogin
-                        email="jane.doe@email.com"
-                        password="demo"
-                        firstName="Jane"
-                    />
+                    <h4>
+                        Have no account yet?, click on one of the demo users
+                        below;
+                    </h4>
+                    <div className="demo-users">
+                        <DemoLogin
+                            email="john.doe@email.com"
+                            password="demo"
+                            firstName="John"
+                        />
+                        <DemoLogin
+                            email="jane.doe@email.com"
+                            password="demo"
+                            firstName="Jane"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
