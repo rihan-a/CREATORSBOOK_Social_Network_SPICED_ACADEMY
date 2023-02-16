@@ -55,3 +55,14 @@
     position: relative;
     font-size: 0.95rem;
 }
+
+@media (max-width: 768px) {
+    .demo-users-container h4 {
+        width: 88%;
+    }
+
+    .demo-users {
+        width: 88%;
+        margin-bottom: 25px;
+    }
+}
