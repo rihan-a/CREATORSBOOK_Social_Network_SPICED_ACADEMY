@@ -18,6 +18,11 @@
     cursor: pointer;
 }
 
+.empty-space-navbar {
+    width: 60px;
+    height: 20px;
+}
+
 .nav-bar .logo-svg:hover {
     fill: var(--accentColor);
 }
