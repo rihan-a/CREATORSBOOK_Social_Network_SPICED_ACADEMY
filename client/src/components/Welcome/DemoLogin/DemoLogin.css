@@ -1,8 +1,15 @@
 .demo-users-container {
+    width: 100%;
+}
+
+.demo-users {
+    margin: auto;
+    margin-top: 15px;
     display: flex;
-    width: 260px;
-    justify-content: space-between;
+    width: 80%;
+    justify-content: flex-start;
     align-items: center;
+    background-color: aqua;
 }
 
 .demo-login-card {
@@ -13,6 +20,7 @@
     border-radius: 10px;
     transition: 0.2s ease-in-out;
     cursor: pointer;
+    margin-right: 10px;
 }
 
 .demo-login-card:hover {
