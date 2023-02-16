@@ -79,6 +79,12 @@ body {
 }
 
 @media (max-width: 768px) {
+    .welcome-page {
+        margin: auto;
+        width: 95%;
+        padding: 10px 0;
+        height: unset;
+    }
     .welcome-box h3 {
         margin: 10px 0 5px;
         width: 90%;
@@ -87,7 +93,7 @@ body {
         font-weight: 500;
     }
     .welcome-box .logo-svg {
-        margin-top: 10px;
+        margin-top: 25px;
         width: 90%;
     }
 
