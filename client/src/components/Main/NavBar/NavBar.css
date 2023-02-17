@@ -148,6 +148,11 @@
         width: 180px;
         min-width: 150px;
     }
+
+    .nav-bar .online-badge {
+        right: 1px;
+    }
+
     .hamburger-menu-container {
         width: 95%;
         top: 85px;
