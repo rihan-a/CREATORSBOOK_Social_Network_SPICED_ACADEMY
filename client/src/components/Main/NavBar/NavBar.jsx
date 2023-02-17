@@ -150,6 +150,11 @@ function NavBar(props) {
                             <div className="menu-line"></div>
 
                             <Logout />
+                            <div className="menu-line"></div>
+
+                            <div className="hamburger-dark-switch">
+                                <DarkModeSwitch />
+                            </div>
                         </div>
                         <div
                             className="empty-backdrop"
@@ -158,7 +163,9 @@ function NavBar(props) {
                     </>
                 )}
 
-                <DarkModeSwitch />
+                <div className="navbar-dark-switch">
+                    <DarkModeSwitch />
+                </div>
 
                 <ProfilePicture
                     openModalHandler={props.openModalHandler}
