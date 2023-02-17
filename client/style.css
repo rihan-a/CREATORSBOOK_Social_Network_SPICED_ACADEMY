@@ -19,17 +19,16 @@ body {
     color: var(--textColor);
     margin: auto;
     font-family: "Poppins", sans-serif;
+    transition: background 0.7s linear;
 }
-/* dark theme colors */
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --backgroundColor: rgb(16, 16, 16);
-        --chatBg: rgb(31, 31, 31);
-        --textColor: #eee;
-        --cardBackground: rgb(64, 64, 64);
-        --uploaderModal: rgba(34, 34, 34, 0.944);
-    }
+/* dark theme colors */
+body.dark {
+    --backgroundColor: rgb(16, 16, 16);
+    --chatBg: rgb(31, 31, 31);
+    --textColor: #eee;
+    --cardBackground: rgb(64, 64, 64);
+    --uploaderModal: rgba(34, 34, 34, 0.944);
 }
 
 .main {
