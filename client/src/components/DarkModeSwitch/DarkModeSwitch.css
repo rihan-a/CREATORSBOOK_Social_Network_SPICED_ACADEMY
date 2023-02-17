@@ -12,7 +12,7 @@ body.dark {
     background-color: #292c35;
 } */
 
-.dark-mode-swtich {
+.dark-mode-switch {
     transition: background 0.2s linear;
 }
 
@@ -31,6 +31,7 @@ body.dark {
     position: relative;
     height: 26px;
     width: 50px;
+    cursor: pointer;
 }
 
 .ball {
@@ -49,9 +50,15 @@ body.dark {
 }
 
 .fa-moon {
-    color: #f1c40f;
+    fill: #f1c40f;
 }
 
 .fa-sun {
-    color: #f39c12;
+    fill: red;
+}
+
+@media (max-width: 768px) {
+    .dark-mode-switch {
+        margin-top: 10px;
+    }
 }
