@@ -135,6 +135,10 @@
     margin-left: 7px;
 }
 
+.hamburger-dark-switch {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .nav-bar {
         padding: 0 8px;
@@ -147,6 +151,9 @@
     .hamburger-menu-container {
         width: 95%;
         top: 85px;
+    }
+    .hamburger-dark-switch {
+        display: inline-block;
     }
 
     .empty-space-navbar {
