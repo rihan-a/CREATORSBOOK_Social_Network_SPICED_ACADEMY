@@ -148,4 +148,11 @@
         width: 95%;
         top: 85px;
     }
+
+    .empty-space-navbar {
+        display: none;
+    }
+    .navbar-dark-switch {
+        display: none;
+    }
 }
