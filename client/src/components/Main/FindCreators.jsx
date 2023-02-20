@@ -36,17 +36,21 @@ function FindCreators() {
 
     // get the latest 3 creators
     useEffect(() => {
-        fetch("/api/creators")
-            .then((result) => result.json())
-            .then((result) => {
-                //console.log(result);
+        async function fetchCreators() {
+            try {
+                const response = await fetch("/api/creators");
+                const result = await response.json();
+
                 if (result.success == true) {
                     setCreators([...result.creatorsData]);
-                    //console.log(result.creatorsData);
                 } else {
                     setError(result.error);
                 }
-            });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchCreators();
     }, []);
 
     // get creators by name -incremental search
