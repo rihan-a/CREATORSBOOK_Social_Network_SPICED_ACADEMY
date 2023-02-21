@@ -55,17 +55,21 @@ function FindCreators() {
 
     // get creators by name -incremental search
     useEffect(() => {
-        fetch(`/api/creators/${searchQuery}`)
-            .then((result) => result.json())
-            .then((result) => {
-                //console.log(result);
+        async function fetchCreatorsByName() {
+            try {
+                const response = await fetch(`/api/creators/${searchQuery}`);
+                const result = await response.json();
                 if (result.success == true) {
                     setCreators([...result.creatorsData]);
                     //console.log(result.creatorsData);
                 } else {
                     setError(result.error);
                 }
-            });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchCreatorsByName();
     }, [searchQuery]);
 
     return (
