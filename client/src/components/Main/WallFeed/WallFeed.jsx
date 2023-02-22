@@ -24,24 +24,25 @@ function WallFeed() {
     }, []);
 
     useEffect(() => {
-        fetch("/api/posts")
-            .then((result) => result.json())
-            .then((result) => {
-                //console.log(result);
+        async function fetchPosts() {
+            try {
+                const response = await fetch("/api/posts");
+                const result = await response.json();
                 if (result.success == true) {
-                    //console.log(result.myCollabsData);
                     dispatch(getPosts(result.postsData));
                 } else {
                     setError(result.error);
                 }
-            });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchPosts();
     }, []);
 
     const postsList = useSelector((state) => {
         return state.posts.postsList && state.posts.postsList;
     });
-
-    //console.log(postsList);
 
     return (
         <>
