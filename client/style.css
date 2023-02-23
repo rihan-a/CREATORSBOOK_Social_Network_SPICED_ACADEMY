@@ -7,6 +7,7 @@
 /* global color variables */
 :root {
     --backgroundColor: #eee;
+    --backgroundColorNav: #eeeeee2c;
     --chatBg: rgb(220, 220, 220);
     --textColor: rgb(16, 16, 16);
     --cardBackground: white;
@@ -25,6 +26,7 @@ body {
 /* dark theme colors */
 body.dark {
     --backgroundColor: rgb(16, 16, 16);
+    --backgroundColorNav: rgb(16, 16, 16, 0.2);
     --chatBg: rgb(31, 31, 31);
     --textColor: #eee;
     --cardBackground: rgb(64, 64, 64);
