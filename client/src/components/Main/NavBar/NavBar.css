@@ -7,7 +7,10 @@
     position: fixed;
     top: 0;
     z-index: 999;
-    /* background-color: var(--backgroundColor); */
+    background-color: var(--backgroundColorNav);
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .nav-bar .logo-svg {
@@ -34,7 +37,6 @@
     cursor: pointer;
     text-decoration: none;
     user-select: none;
-    /* display: none; */
 }
 
 .nav-bar .nav-link:hover {
