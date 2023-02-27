@@ -25,13 +25,6 @@ function DemoLogin(props) {
 
     return (
         <div className="demo-login-card" onClick={handleSubmit}>
-            <div className="demo-img-container">
-                <img
-                    className="demo-img"
-                    src="https://s3.amazonaws.com/spicedling/9Cy9WiUmJ1Qqz81EQBD0Q1CYw9hsClyO.jpg"
-                    alt="profile picture"
-                />
-            </div>
             <h4 className="demo-name">{props.firstName} Doe</h4>
         </div>
     );
