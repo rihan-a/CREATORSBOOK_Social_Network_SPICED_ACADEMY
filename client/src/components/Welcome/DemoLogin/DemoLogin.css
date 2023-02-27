@@ -21,32 +21,20 @@
 
 .demo-login-card {
     width: 100px;
-    /* aspect-ratio: 1/1; */
-    /* background-color: rgba(255, 255, 255); */
+    aspect-ratio: 1/0.7;
     background-color: rgba(255, 255, 255, 0.564);
     border-radius: 10px;
     transition: 0.2s ease-in-out;
     cursor: pointer;
     margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .demo-login-card:hover {
     background-color: rgba(255, 255, 255, 0.9);
 }
-
-.demo-img-container {
-    margin: 10px auto;
-    width: 90%;
-    aspect-ratio: 1/1;
-    overflow: hidden;
-    border-radius: 10px;
-}
-.demo-login-card img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
 .demo-login-card .demo-name {
     display: block;
     color: black;
