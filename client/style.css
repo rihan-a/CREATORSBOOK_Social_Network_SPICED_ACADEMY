@@ -20,7 +20,7 @@ body {
     color: var(--textColor);
     margin: auto;
     font-family: "Poppins", sans-serif;
-    transition: background 0.7s linear;
+    transition: background 0.2s linear;
 }
 
 /* dark theme colors */
