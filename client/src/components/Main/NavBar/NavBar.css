@@ -7,10 +7,19 @@
     position: fixed;
     top: 0;
     z-index: 999;
+}
+
+.nav-bar::after {
+    content: "";
+    position: absolute;
     background-color: var(--backgroundColorNav);
-    border-radius: 10px;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+    width: 105%;
+    height: 100%;
+    top: 0;
+    left: -2.5%;
+    z-index: -100;
 }
 
 .nav-bar .logo-svg {
