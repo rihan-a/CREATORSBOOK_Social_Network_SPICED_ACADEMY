@@ -8,15 +8,19 @@ function BioEditor() {
     //const [error, setError] = useState("");
 
     useEffect(() => {
-        fetch("/creators-data")
-            .then((result) => result.json())
-            .then((result) => {
-                //console.log(result);
+        async function creatorsData() {
+            try {
+                const response = await fetch("/creators-data");
+                const result = await response.json();
                 if (result.userData.bio) {
                     setBioText(result.userData.bio);
                     setBioState("edit");
                 }
-            });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        creatorsData();
     }, []);
 
     const addBioText = (e) => {
