@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 function BioEditor() {
     const [bioState, setBioState] = useState("add");
-
     const [bioText, setBioText] = useState("");
 
     //const [error, setError] = useState("");
@@ -10,7 +9,7 @@ function BioEditor() {
     useEffect(() => {
         async function creatorsData() {
             try {
-                const response = await fetch("/creators-data");
+                const response = await fetch("/api/creators-data");
                 const result = await response.json();
                 if (result.userData.bio) {
                     setBioText(result.userData.bio);
@@ -31,23 +30,23 @@ function BioEditor() {
         setBioState("save");
     };
 
-    const saveBioData = () => {
-        console.log(bioText);
-        fetch("/bio/save", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ bioText }),
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                setBioText(res.bio);
-                //setError("");
-            })
-            .catch((err) => {
-                //setError("Something went wrong!");
+    async function saveBioData() {
+        console.log("save bio");
+        try {
+            const response = await fetch("/bio/save", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bioText }),
             });
+            const result = await response.json();
+            if (result.success) {
+                setBioText(result.bio);
+            }
+        } catch (error) {
+            console.error(error);
+        }
         setBioState("edit");
-    };
+    }
 
     return (
         <div className="bio-container">
