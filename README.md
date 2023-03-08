@@ -19,6 +19,9 @@ You can create an account or use the demo Login details;
 email: john.doe@email.com
 password: demo
 ```
+---
+## App Structure
+![My First Board](https://user-images.githubusercontent.com/90706137/223853715-faf14d03-3bf9-4b4b-a639-b27d894380a4.jpg)
 
 ---
 
