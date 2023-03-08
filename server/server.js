@@ -50,13 +50,11 @@ const {
 //GET
 app.get("/user/id", (req, res) => {
     if (req.session.userID) {
-        res.status(200).json({ userID: req.session.userID });
+        return res.status(200).json({ userID: req.session.userID });
     } else {
-        res.status(401).json({ userID: null });
+        return res.status(401).json({ userID: null });
     }
-
 });
-
 
 // import registeration route
 const registration = require("./routes/registration");
