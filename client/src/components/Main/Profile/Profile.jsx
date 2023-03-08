@@ -18,9 +18,7 @@ function Profile(props) {
                 onClick={props.closeModalHandler}
             ></div>
             <div className="profileModal">
-                <h4>
-                    {props.firstNameHandler} {props.lastNameHandler}
-                </h4>
+                <h4>{props.creatorNameHandler}</h4>
                 <span
                     className="material-symbols-outlined close-icon"
                     onClick={props.closeModalHandler}
