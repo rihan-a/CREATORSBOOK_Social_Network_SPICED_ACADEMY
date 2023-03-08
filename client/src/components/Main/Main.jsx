@@ -21,8 +21,7 @@ function Main() {
 
     const [modalToggle, setModalToggle] = useState(false);
     const [imgUrl, setImgUrl] = useState(placeHolderImgUrl);
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [creatorName, setCreatorName] = useState("");
     const [bio, setBio] = useState("");
     const [profilePicError, setProfilePicError] = useState("");
     const [loading, setLoadingState] = useState(false);
@@ -51,13 +50,13 @@ function Main() {
             console.log("error in uploading image");
             return;
         }
+
         fetch("/profileImgUpload", {
             method: "POST",
             body: formData,
         })
             .then((res) => res.json())
             .then((res) => {
-                //console.log("img url should be here", res);
                 setProfilePicError("");
                 setImgUrl(res.img_url);
                 setLoadingState(false);
@@ -68,21 +67,21 @@ function Main() {
         fetch("/api/creator-data")
             .then((result) => result.json())
             .then((result) => {
-                //console.log(result);
                 dispatch(getLoggedInUserData(result.userData));
-                setFirstName(result.userData.first_name);
-                setLastName(result.userData.last_name);
-
+                const creatorFullName =
+                    result.userData.first_name +
+                    " " +
+                    result.userData.last_name;
+                setCreatorName(creatorFullName);
                 if (result.userData) {
                     setBio(result.userData.bio);
                 }
 
                 if (result.userData.img_url) {
-                    //console.log(result.userData.img_url);
                     setImgUrl(result.userData.img_url);
                 }
             });
-    }, [firstName, lastName, imgUrl, bio]);
+    }, [imgUrl, bio]);
 
     return (
         <>
@@ -109,7 +108,7 @@ function Main() {
                     ></Route>
                 </Routes>
 
-                {modalToggle == true && (
+                {modalToggle && (
                     <>
                         {profilePicError != "" && (
                             <p className="profile-pic-error">
@@ -121,12 +120,10 @@ function Main() {
                             closeModalHandler={closeUploader}
                             uploadImgHandler={uploadImage}
                             imgUrlHandler={imgUrl}
-                            firstNameHandler={firstName}
-                            lastNameHandler={lastName}
-                            // errorHandler={error}
+                            creatorNameHandler={creatorName}
                             bioHandler={bio}
                         ></Profile>
-                        {loading == true && (
+                        {loading && (
                             <div className="loading-spinner-profile">
                                 <ThreeDots
                                     height="100"
