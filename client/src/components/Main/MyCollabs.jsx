@@ -81,7 +81,7 @@ function MyCollabs() {
                     //console.log(result.myCollabsData);
                     dispatch(getCollabs(result.myCollabsData));
                 } else {
-                    setError(result.error);
+                    //setError(result.error);
                 }
             });
     }, []);
