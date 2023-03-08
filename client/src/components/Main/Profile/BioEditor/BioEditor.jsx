@@ -4,12 +4,18 @@ function BioEditor() {
     const [bioState, setBioState] = useState("add");
     const [bioText, setBioText] = useState("");
 
-    //const [error, setError] = useState("");
+    const addBioText = (e) => {
+        setBioText(e.target.value);
+    };
+
+    const editBioHandler = () => {
+        setBioState("save");
+    };
 
     useEffect(() => {
         async function creatorsData() {
             try {
-                const response = await fetch("/api/creators-data");
+                const response = await fetch("/api/creator-data");
                 const result = await response.json();
                 if (result.userData.bio) {
                     setBioText(result.userData.bio);
@@ -22,16 +28,7 @@ function BioEditor() {
         creatorsData();
     }, []);
 
-    const addBioText = (e) => {
-        setBioText(e.target.value);
-    };
-
-    const editBioHandler = () => {
-        setBioState("save");
-    };
-
     async function saveBioData() {
-        console.log("save bio");
         try {
             const response = await fetch("/bio/save", {
                 method: "POST",
