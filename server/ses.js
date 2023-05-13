@@ -1,9 +1,11 @@
 require("dotenv").config();
-const aws = require("aws-sdk");
+const {
+    SES
+} = require("@aws-sdk/client-ses");
 
 const { AWS_KEY, AWS_SECRET, AWS_REGION } = process.env;
 
-const ses = new aws.SES({
+const ses = new SES({
     accessKeyId: AWS_KEY,
     secretAccessKey: AWS_SECRET,
     region: AWS_REGION,
@@ -40,7 +42,7 @@ async function sendCodeEmail(name, code) {
                     Data: "CREATORSBOOK - PASSWORD RESET!"
                 }
             }
-        }).promise();
+        });
         console.log('it worked!');
         return "success";
     } catch (err) {

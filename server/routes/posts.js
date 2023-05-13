@@ -2,7 +2,9 @@
 const express = require("express");
 const router = express.Router();
 
-const aws = require("aws-sdk");
+const {
+    S3
+} = require("@aws-sdk/client-s3");
 const fs = require("fs");
 const { uploader } = require("../middleware");
 const util = require("util");
@@ -20,7 +22,7 @@ const { AWS_KEY,
 
 
 // AWS S3
-const s3 = new aws.S3({
+const s3 = new S3({
     accessKeyId: AWS_KEY,
     secretAccessKey: AWS_SECRET,
 });
@@ -67,8 +69,7 @@ router.post("/api/postImgUpload", uploader.single("file"), (req, res) => {
             Body: fs.createReadStream(path),
             ContentType: mimetype,
             ContentLength: size,
-        })
-        .promise();
+        });
 
     promise
         .then(() => {
