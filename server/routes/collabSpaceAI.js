@@ -7,7 +7,8 @@ const { Configuration, OpenAIApi } = require("openai");
 
 // import secrete data from dotenv
 const {
-    OPENAI_API_KEY
+    OPENAI_API_KEY,
+    OPENAI_ORGANIZATION
 } = process.env;
 
 // import funciton from db script to interact with the database tables --------->
@@ -18,9 +19,11 @@ const { getAiCount, insertPrompt } = require("../db");
 //------------------------------------------------------------------------------------------------------>
 //GET
 const configuration = new Configuration({
-    apiKey: `${OPENAI_API_KEY}`,
+    organization: `${OPENAI_ORGANIZATION}`,
+    apiKey: `${OPENAI_API_KEY}`
 });
 const openai = new OpenAIApi(configuration);
+
 
 
 router.post("/api/collabspace/ai", (req, res) => {
