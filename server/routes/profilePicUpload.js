@@ -24,17 +24,20 @@ router.use(express.static(path.join(__dirname, "uploads")));
 
 
 // import secrete data from dotenv
-const { AWS_KEY,
+const { AWS_REGION,
+    AWS_KEY,
     AWS_SECRET,
 } = process.env;
 
 
 // AWS S3
 const s3 = new S3({
-    accessKeyId: AWS_KEY,
-    secretAccessKey: AWS_SECRET,
+    region: AWS_REGION,
+    credentials: {
+        accessKeyId: AWS_KEY,
+        secretAccessKey: AWS_SECRET
+    }
 });
-
 
 
 // Upload profile picture Route -------------------------------------------->
@@ -43,11 +46,12 @@ const s3 = new S3({
 router.post("/profileImgUpload", uploader.single("file"), (req, res) => {
     //console.log(req.file);
     const { filename, mimetype, size, path } = req.file;
+    const folderName = "creatorsbook-profile-pic"; // Folder name inside the bucket
     const promise = s3 // this to send to aws, different for other cloud storage
         .putObject({
-            Bucket: "rihanbucket/creatorsbook-profile-pic",
+            Bucket: "rihanbucket",
             ACL: "public-read",
-            Key: filename,
+            Key: `${folderName}/${filename}`, // Include the folder name in the Key
             Body: fs.createReadStream(path),
             ContentType: mimetype,
             ContentLength: size,
