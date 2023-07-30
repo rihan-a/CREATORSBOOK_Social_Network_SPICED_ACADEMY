@@ -1,6 +1,6 @@
 # CREATORSBOOK Social Network
 
-Fullstack web app done during a Web development Bootcamp at SPICED Academy Berlin.
+Full Stack web app done during Web-development Bootcamp at SPICED Academy Berlin.
 
 CREATORSBOOK Social Network
 A global community of artists dedicated to creative excellence. Built by artists, for artists, a platform for creators to collaborate and connect, participate in realtime sketching sessions, and generate content using AI and other tools.
