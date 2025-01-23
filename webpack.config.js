@@ -15,8 +15,11 @@ module.exports = () => ({
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html', // Path to your existing index.html (if any)
-            filename: 'index.html', // Output file name
+            template: path.join(__dirname, "client", "src", "index.html"), // Corrected path
+            filename: 'index.html',
+        }),
+        new MiniCssExtractPlugin({
+            filename: "bundle.css",
         }),
     ],
     performance: {
@@ -63,9 +66,4 @@ module.exports = () => ({
     resolve: {
         extensions: [".tsx", ".ts", ".jsx", ".js"],
     },
-    plugins: [
-        new MiniCssExtractPlugin({
-            filename: "bundle.css",
-        }),
-    ],
 });
