@@ -104,6 +104,10 @@ const io = require("socket.io")(server, {
 });
 
 io.use((socket, next) => {
+    // Ensure the `res` object is available
+    if (!socket.request.res) {
+        return next(new Error('Response object is missing'));
+    }
     cookieSessionMiddleware(socket.request, socket.request.res, next);
 });
 const onlineCreators = {};
