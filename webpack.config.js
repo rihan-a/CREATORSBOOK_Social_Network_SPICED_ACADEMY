@@ -15,7 +15,7 @@ module.exports = () => ({
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, "client", "src", "index.html"), // Corrected path
+            template: path.join(__dirname, "client", "index.html"), // Corrected path
             filename: 'index.html',
         }),
         new MiniCssExtractPlugin({
