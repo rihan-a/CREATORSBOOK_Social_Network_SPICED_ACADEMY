@@ -98,7 +98,7 @@ app.use(posts);
 //-------------------------------------------------------------------------->
 const io = require("socket.io")(server, {
     cors: {
-        origin: ["https://creatorsbook.de"],
+        origin: ["https://creatorsbook.onrender.com"],
         credentials: true,
     }
 });
@@ -124,7 +124,7 @@ io.on("connection", async (socket) => {
     socket.on("chatMessage", (message) => {
         if (message.trim() !== "") {
             insertMessage({ sender_id: userID, message }).then((newMsg) => {
-                // get last msg full data - creators name - img-url 
+                // get last msg full data - creators name - img-url ˜`
                 getLastMessageById({ id: newMsg[0].id }).then((newMsgFullData) => {
                     io.emit("chatMessage", newMsgFullData[0]);
                 });
