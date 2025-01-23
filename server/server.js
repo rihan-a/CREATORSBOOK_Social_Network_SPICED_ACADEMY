@@ -89,8 +89,8 @@ const posts = require("./routes/posts");
 app.use(posts);
 
 // import collab Space AI route
-const collabSpaceAI = require("./routes/collabSpaceAI");
-app.use(collabSpaceAI);
+// const collabSpaceAI = require("./routes/collabSpaceAI");
+// app.use(collabSpaceAI);
 
 
 
