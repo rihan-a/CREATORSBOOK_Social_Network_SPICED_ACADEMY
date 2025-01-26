@@ -8,7 +8,7 @@
     font-weight: 300;
     text-align: left;
     padding-left: 7px;
-    color: #eee !important;
+    color: var(--textColor) !important;
 }
 
 .signup-signin-form {
@@ -54,11 +54,11 @@
 .signup-signin-form span {
     margin: 5px;
     margin-top: 15px;
-    color: #eee;
+    color: var(--textColor);
 }
 .signup-signin-form span a {
     margin: 10px;
-    color: #eee;
+    color: var(--textColor);
 }
 
 .login input:nth-child(3) {
