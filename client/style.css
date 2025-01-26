@@ -61,23 +61,24 @@ body.dark {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url("https://rihanbucket.s3.amazonaws.com/creatorsbook/8.jpg");
+    /* background-image: url("https://rihanbucket.s3.amazonaws.com/creatorsbook/8.jpg"); */
+    background-image: url("https://adb-leon.fr/projets/medias/38/272/m/creation-de-site-web_01T2.webp");
     filter: saturate(70%);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .welcome-box .logo-svg {
-    width: 80%;
+    width: 60%;
     margin-bottom: 20px;
-    fill: #eee;
+    fill: var(--textColor);
 }
 
 .welcome-box h3 {
     font-size: 1.5rem;
     font-weight: 300;
     margin: 10px 0 20px;
-    color: #eee !important;
+    color: var(--textColor) !important;
 }
 
 @media (max-width: 768px) {
